@@ -1,0 +1,19 @@
+.start_panel {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  height: 100%;
+  padding: 5px;
+  border-top: 2px solid #e0f2f2;
+  background-color: var(--start-color);
+  &__button {
+    height: 100%;
+    font-weight: bold;
+    letter-spacing: 2px;
+    border: none;
+    background-color: var(--start-color);
+    border-top: 2px solid #efefef;
+    box-shadow: -6px -6px 3px -5px rgba(0, 0, 0, 1) inset;
+  }
+}

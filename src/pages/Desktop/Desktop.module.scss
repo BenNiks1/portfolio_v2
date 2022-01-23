@@ -1,0 +1,15 @@
+$startHeight: var(--start-height);
+
+.windows {
+  display: flex;
+  flex-direction: column;
+  &__desktop {
+    width: 100%;
+    height: calc(100vh - $startHeight);
+    background-color: #018081;
+  }
+  &__start {
+    width: 100%;
+    height: $startHeight;
+  }
+}
