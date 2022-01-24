@@ -1,0 +1,9 @@
+@mixin activeButtonShadow {
+  box-shadow: -6px -6px 3px -5px rgba(255, 255, 255, 1) inset,
+    6px 6px 4px -5px rgba(0, 0, 0, 1) inset;
+  border-top: none;
+}
+@mixin buttonShadow {
+  box-shadow: -6px -6px 3px -5px rgba(0, 0, 0, 1) inset,
+    7px 7px 0px -5px rgba(255, 255, 255, 0.6) inset;
+}

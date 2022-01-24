@@ -1,0 +1,13 @@
+@import "../../assets/styles/mixins.scss";
+
+.clock {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 100%;
+  @include activeButtonShadow();
+  span {
+    font-size: 14px;
+  }
+}

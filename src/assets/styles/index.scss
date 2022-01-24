@@ -1,4 +1,4 @@
-@import "./assets/fonts/_fonts.scss";
+@import "./_fonts.scss";
 
 *,
 *::after,
@@ -11,8 +11,6 @@
 
 :root {
   --start-color: #c0c0c0;
-  --start-height: 35px;
-}
-
-body {
+  --start-height: 38px;
+  --white-border: #e0f2f2;
 }

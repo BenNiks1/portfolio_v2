@@ -1,13 +1,23 @@
+import { FC, useState } from "react";
 import styles from "./Start.module.scss";
-import Logo from "../../assets/logo.svg";
+import logo from "../../assets/logo.png";
+import { StartMenu } from ".";
+import cn from "classnames";
+import { Clock } from "../../components";
 
-export const Start = () => {
+export const Start: FC = () => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
     <div className={styles.start_panel}>
-      <button className={styles.start_panel__button}>
-        <Logo />
-        Start
-      </button>
+      <div
+        className={cn(styles.start_panel__button, { [styles.active]: isOpen })}
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <img src={logo} alt="win" className={styles.start_panel__logo} />
+        <span className={styles.start_panel__text}>Start</span>
+      </div>
+      <Clock />
+      {isOpen && <StartMenu />}
     </div>
   );
 };
