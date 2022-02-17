@@ -7,17 +7,20 @@ import { Clock } from "../../components";
 
 export const Start: FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
   return (
     <div className={styles.start_panel}>
       <div
-        className={cn(styles.start_panel__button, { [styles.active]: isOpen })}
+        className={cn(styles.start_panel__button, {
+          [styles.active]: isOpen,
+        })}
         onClick={() => setIsOpen(!isOpen)}
       >
         <img src={logo} alt="win" className={styles.start_panel__logo} />
         <span className={styles.start_panel__text}>Start</span>
       </div>
       <Clock />
-      {isOpen && <StartMenu />}
+      {isOpen && <StartMenu setIsOpen={setIsOpen} />}
     </div>
   );
 };
