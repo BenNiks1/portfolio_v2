@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  grid-gap: 6px;
+  max-width: 100px;
+  width: 100%;
+  cursor: pointer;
+  .label {
+    font-size: 13px;
+  }
+}
