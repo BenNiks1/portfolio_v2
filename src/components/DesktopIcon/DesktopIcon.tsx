@@ -1,31 +1,40 @@
 import classNames from "classnames";
-import { FC, MouseEvent, useState } from "react";
+import { FC, MouseEvent } from "react";
+import { useAction, useTypedSelector } from "../../hooks";
 import styles from "./DesktopIcon.module.scss";
 
 interface DesktopIconProps {
   label: string;
-  icon: any;
+  icon: string;
+  activeWindow: number;
 }
 
-export const DesktopIcon: FC<DesktopIconProps> = ({ label, icon }) => {
-  const [isClicked, setIsClicked] = useState<boolean>(false);
-
+export const DesktopIcon: FC<DesktopIconProps> = ({
+  label,
+  icon,
+  activeWindow,
+}) => {
+  const { setActiveWindow, setClickedIcon } = useAction();
+  const { isIconClicked } = useTypedSelector((state) => state.app);
   const handleIconClick = (e: MouseEvent<HTMLElement>) => {
+    e.stopPropagation();
     switch (e.detail) {
       case 1:
-        setIsClicked(true);
+        setClickedIcon(true);
         break;
       case 2:
-        setIsClicked(false);
+        setActiveWindow(activeWindow);
+        setClickedIcon(false);
         break;
       default:
         return;
     }
   };
+
   return (
     <div
       className={classNames(styles.container, {
-        [styles.clicked]: isClicked,
+        [styles.clicked]: isIconClicked,
       })}
       onClick={handleIconClick}
     >
