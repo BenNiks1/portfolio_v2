@@ -1,0 +1,78 @@
+@import "../../assets/styles/mixins.scss";
+
+.window {
+  max-width: 600px;
+  width: 100%;
+  background-color: var(--start-color);
+  @include buttonShadow();
+  padding: 4px;
+  &_header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 20px;
+    padding: 0 5px;
+    background-color: var(--hover-blue);
+    &__title {
+      color: #fff;
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+    }
+    &__buttons {
+      display: flex;
+      grid-gap: 3px;
+      padding: 3px;
+    }
+    &__button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 16px;
+      width: 16px;
+      padding: 0;
+      font-weight: 700;
+      background-color: var(--start-color);
+      border: 0;
+      cursor: pointer;
+      box-shadow: -6px -6.2px 1px -5px rgba(0, 0, 0, 1) inset,
+        7px 7px 0px -6px rgba(255, 255, 255, 0.6) inset;
+      &:active {
+        padding: 2px 0 0 2px;
+        box-shadow: -6px -6.2px 1px -5px rgba(255, 255, 255, 0.6) inset,
+          7px 7px 0px -6px rgba(0, 0, 0, 1) inset;
+        .minimize_icon,
+        .expand_icon {
+          margin-bottom: 1px;
+        }
+      }
+      .minimize_icon,
+      .expand_icon {
+        display: flex;
+        align-self: flex-end;
+        margin-bottom: 3px;
+      }
+      .minimize_icon {
+        width: 10px;
+        height: 2px;
+        background: #000;
+      }
+      .expand_icon {
+        width: 10px;
+        height: 11px;
+        border: 2px solid #000;
+        border-top-width: 3px;
+      }
+      .close_icon {
+        width: 10px;
+        height: 10px;
+      }
+    }
+  }
+  &_content {
+    background-color: #fff;
+    margin: 4px 0;
+    padding: 5px;
+    @include windowContentShadow();
+  }
+}

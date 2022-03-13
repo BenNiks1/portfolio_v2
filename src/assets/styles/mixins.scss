@@ -7,3 +7,8 @@
   box-shadow: -6px -6px 3px -5px rgba(0, 0, 0, 1) inset,
     7px 7px 0px -5px rgba(255, 255, 255, 0.6) inset;
 }
+// TODO: Переименовать миксины и порефакторить
+@mixin windowContentShadow {
+  box-shadow: -6px -6px 3px -5px rgba(255, 255, 255, 0.6) inset,
+    7px 7px 0px -5px rgba(0, 0, 0, 1) inset;
+}

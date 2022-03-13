@@ -1,13 +1,13 @@
 import { AppActions, AppActionTypes } from "../types";
 
 interface AppState {
-  activeWindow: number;
-  isIconClicked: boolean;
+  activeIcon: number;
+  activeWindow: number[];
 }
 
 const initialState: AppState = {
-  activeWindow: 0,
-  isIconClicked: false,
+  activeIcon: 0,
+  activeWindow: [],
 };
 
 export const appReducer = (
@@ -15,10 +15,14 @@ export const appReducer = (
   action: AppActions
 ): AppState => {
   switch (action.type) {
+    case AppActionTypes.SET_ACTIVE_ICON:
+      return { ...state, activeIcon: action.payload };
     case AppActionTypes.SET_ACTIVE_WINDOW:
-      return { ...state, activeWindow: action.payload };
-    case AppActionTypes.SET_CLICKED_ICON:
-      return { ...state, isIconClicked: action.payload };
+      return {
+        ...state,
+        activeWindow: action.payload,
+      };
+
     default:
       return state;
   }

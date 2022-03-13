@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { DesktopIcon, Start } from "../../components";
+import { DesktopIcon, Start, Window } from "../../components";
 
 import styles from "./Desktop.module.scss";
 import computer from "../../assets/computer.png";
@@ -7,9 +7,9 @@ import { useAction } from "../../hooks";
 import { COMPUTER_ICON } from "../../utils";
 
 export const Desktop: FC = () => {
-  const { setClickedIcon } = useAction();
+  const { setActiveIcon } = useAction();
   const onDesktopClick = () => {
-    setClickedIcon(false);
+    setActiveIcon(0);
   };
   return (
     <main className={styles.windows}>
@@ -18,8 +18,9 @@ export const Desktop: FC = () => {
         <DesktopIcon
           icon={computer}
           label={"My Computer"}
-          activeWindow={COMPUTER_ICON}
+          currentIcon={COMPUTER_ICON}
         />
+        <DesktopIcon icon={computer} label={"My Computer"} currentIcon={2} />
       </div>
       <div className={styles.windows__start}>
         <Start />

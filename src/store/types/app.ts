@@ -1,16 +1,15 @@
 export enum AppActionTypes {
   SET_ACTIVE_WINDOW = "SET_ACTIVE_WINDOW",
-  SET_CLICKED_ICON = "SET_CLICKED_ICON",
+  SET_ACTIVE_ICON = "SET_ACTIVE_ICON",
 }
 
-export type AppActions = setActiveWindow | setClickedIcon;
+export type AppActions = setActiveWindow | setActiveIcon;
 
-export interface setActiveWindow {
-  type: AppActionTypes.SET_ACTIVE_WINDOW;
+export interface setActiveIcon {
+  type: AppActionTypes.SET_ACTIVE_ICON;
   payload: number;
 }
-
-export interface setClickedIcon {
-  type: AppActionTypes.SET_CLICKED_ICON;
-  payload: boolean;
+export interface setActiveWindow {
+  type: AppActionTypes.SET_ACTIVE_WINDOW;
+  payload: number[];
 }
