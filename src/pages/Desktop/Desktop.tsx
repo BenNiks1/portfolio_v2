@@ -4,6 +4,8 @@ import { useQuery } from "react-query";
 import styles from "./Desktop.module.scss";
 import { useAction } from "../../hooks";
 import { getDesktopData } from "../../api";
+import cn from "classnames";
+import { DesktopData } from "../../model";
 
 export const Desktop: FC = () => {
   const { data: response, isLoading } = useQuery(
@@ -15,7 +17,7 @@ export const Desktop: FC = () => {
       },
     }
   );
-  console.log("res", response);
+
   const { setActiveIcon } = useAction();
   const onDesktopClick = () => {
     setActiveIcon(0);
@@ -23,17 +25,18 @@ export const Desktop: FC = () => {
   if (isLoading) return <></>;
   return (
     <main className={styles.windows}>
-      <div className={styles.windows__desktop} onClick={onDesktopClick}>
-        {/* TODO: сделать fake rest api и прокинуть через map */}
-        {/* @ts-ignore */}
-        {response.data.map((iconData) => (
+      <div
+        className={cn(styles.windows__desktop, "desktop")}
+        onClick={onDesktopClick}
+      >
+        {response?.data.map((iconData: DesktopData) => (
           <DesktopIcon
             icon={iconData.icon}
             label={iconData.label}
             currentIcon={iconData.currentIcon}
+            windowData={iconData.window}
           />
         ))}
-        {/* <DesktopIcon icon={computer} label={"My Computer"} currentIcon={2} /> */}
       </div>
       <div className={styles.windows__start}>
         <Start />

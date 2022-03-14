@@ -8,13 +8,12 @@
   box-sizing: border-box;
   font-family: "MicrosoftSansSerif";
 }
-// TODO: переименовать start color в primary grey
-// переименовать hover blue
+
 :root {
-  --start-color: #c0c0c0;
+  --primary-grey: #c0c0c0;
   --start-height: 38px;
   --white-border: #e0f2f2;
-  --hover-blue: #010d80;
+  --primary-blue: #010d80;
   --hover-text: #f0f0f8;
   --icon-label: #fff;
 }

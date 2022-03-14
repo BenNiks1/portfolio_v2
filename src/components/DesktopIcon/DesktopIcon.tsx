@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import { FC, MouseEvent } from "react";
 import { useAction, useTypedSelector } from "../../hooks";
+import { WindowData } from "../../model";
 import { Window } from "../Window";
 import styles from "./DesktopIcon.module.scss";
 
@@ -8,12 +9,14 @@ interface DesktopIconProps {
   label: string;
   icon: string;
   currentIcon: number;
+  windowData: WindowData;
 }
 
 export const DesktopIcon: FC<DesktopIconProps> = ({
   label,
   icon,
   currentIcon,
+  windowData,
 }) => {
   const { setActiveWindow, setActiveIcon } = useAction();
   const { activeWindow, activeIcon } = useTypedSelector((state) => state.app);
@@ -31,7 +34,6 @@ export const DesktopIcon: FC<DesktopIconProps> = ({
         return;
     }
   };
-  console.log("icon", icon);
 
   return (
     <>
@@ -45,7 +47,11 @@ export const DesktopIcon: FC<DesktopIconProps> = ({
         <p className={styles.label}>{label}</p>
       </div>
       {activeWindow.includes(currentIcon) && (
-        <Window currentWindow={currentIcon}></Window>
+        <Window
+          currentWindow={currentIcon}
+          windowData={windowData}
+          label={label}
+        />
       )}
     </>
   );

@@ -41,7 +41,7 @@ export const StartMenu: FC<StartMenuProps> = ({ setIsOpen }) => {
               styles.nav__list_item,
               styles.nav__list_shutdown
             )}
-            // TODO: Возможно понадобиться, если получится выключить вкладку по кнопке
+            // TODO: Сделать кнопку перезагрузки и загрузкой биоса
             // onClick={() => {
             //   window.close();
             // }}

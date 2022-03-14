@@ -8,18 +8,18 @@
   height: 100%;
   padding: 3px;
   border-top: 2px solid var(--white-border);
-  background-color: var(--start-color);
+  background-color: var(--primary-grey);
   &__button {
     display: flex;
     align-items: center;
     grid-gap: 3px;
     height: 100%;
     padding: 0 3px;
-    background-color: var(--start-color);
-    @include buttonShadow();
+    background-color: var(--primary-grey);
+    @include primaryShadow();
     cursor: pointer;
     &.active {
-      @include activeButtonShadow();
+      @include reverseShadow();
     }
   }
   &__logo {
@@ -43,8 +43,8 @@
   height: 400px;
   position: absolute;
   bottom: 34px;
-  background: var(--start-color);
-  @include buttonShadow();
+  background: var(--primary-grey);
+  @include primaryShadow();
   &__logo {
     display: flex;
     align-items: flex-end;
@@ -72,7 +72,7 @@
             0px -1px 0px 0px rgba(141, 141, 141, 0.8);
         }
         &:hover {
-          background-color: var(--hover-blue);
+          background-color: var(--primary-blue);
           color: var(--hover-text);
         }
       }
@@ -89,7 +89,7 @@
   justify-content: center;
   width: 50px;
   height: 100%;
-  @include activeButtonShadow();
+  @include reverseShadow();
   span {
     font-size: 14px;
   }

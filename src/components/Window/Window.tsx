@@ -4,21 +4,32 @@ import { useAction } from "../../hooks";
 import styles from "./Window.module.scss";
 import Draggable from "react-draggable";
 import cn from "classnames";
+import { WindowData } from "../../model";
 
 interface WindowProps {
   currentWindow: number;
+  label: string;
+  windowData: WindowData;
 }
 
-export const Window: FC<WindowProps> = ({ currentWindow }) => {
+export const Window: FC<WindowProps> = ({
+  currentWindow,
+  windowData,
+  label,
+}) => {
   const { setActiveWindow } = useAction();
   const onClose = () => {
     setActiveWindow(currentWindow);
   };
   return (
-    <Draggable handle=".window__header">
-      <div className={styles.window}>
+    <Draggable
+      handle=".window__header"
+      bounds=".desktop"
+      defaultPosition={{ x: 400, y: 400 }}
+    >
+      <div className={styles.window} style={{ position: "absolute" }}>
         <header className={cn(styles.window_header, "window__header")}>
-          <p className={styles.window_header__title}>folder name</p>
+          <p className={styles.window_header__title}>{label}</p>
           <div className={styles.window_header__buttons}>
             <button className={styles.window_header__button}>
               <span className={styles.minimize_icon} />
@@ -35,7 +46,10 @@ export const Window: FC<WindowProps> = ({ currentWindow }) => {
             </button>
           </div>
         </header>
-        <main className={styles.window_content}>asdasdasdasd</main>
+        <main className={styles.window_content}>
+          <h2>{windowData.title}</h2>
+          <p>{windowData.text}</p>
+        </main>
       </div>
     </Draggable>
   );
