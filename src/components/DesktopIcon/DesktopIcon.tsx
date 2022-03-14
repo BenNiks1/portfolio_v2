@@ -31,6 +31,7 @@ export const DesktopIcon: FC<DesktopIconProps> = ({
         return;
     }
   };
+  console.log("icon", icon);
 
   return (
     <>
