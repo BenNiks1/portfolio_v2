@@ -9,6 +9,13 @@
   padding: 3px;
   border-top: 2px solid var(--white-border);
   background-color: var(--primary-grey);
+  &__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    grid-gap: 10px;
+    height: 100%;
+  }
   &__button {
     display: flex;
     align-items: center;

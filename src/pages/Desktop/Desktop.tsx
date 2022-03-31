@@ -17,10 +17,10 @@ export const Desktop: FC = () => {
       },
     }
   );
-
-  const { setActiveIcon } = useAction();
+  const { setActiveIcon, setActiveStartIcon } = useAction();
   const onDesktopClick = () => {
     setActiveIcon(0);
+    setActiveStartIcon(0);
   };
   if (isLoading) return <></>;
   return (

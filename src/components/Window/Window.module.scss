@@ -6,13 +6,21 @@
   background-color: var(--primary-grey);
   @include primaryShadow();
   padding: 4px;
+  z-index: 10;
+  &.active {
+    z-index: 20;
+    .window_header {
+      background-color: var(--primary-blue);
+    }
+  }
   &_header {
     display: flex;
     justify-content: space-between;
     width: 100%;
     height: 20px;
     padding: 0 5px;
-    background-color: var(--primary-blue);
+    background-color: var(--secondary-grey);
+
     &__title {
       color: #fff;
       font-size: 14px;

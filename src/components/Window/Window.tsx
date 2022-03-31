@@ -1,10 +1,11 @@
-import { FC } from "react";
+import { FC, MouseEvent } from "react";
 import { ReactComponent as CloseIcon } from "../../assets/closeIcon.svg";
-import { useAction } from "../../hooks";
+import { useAction, useTypedSelector } from "../../hooks";
 import styles from "./Window.module.scss";
 import Draggable from "react-draggable";
 import cn from "classnames";
 import { WindowData } from "../../model";
+import { setActiveIcon } from "../../store/actions";
 
 interface WindowProps {
   currentWindow: number;
@@ -17,9 +18,15 @@ export const Window: FC<WindowProps> = ({
   windowData,
   label,
 }) => {
-  const { setActiveWindow } = useAction();
+  const { setActiveWindow, setActiveStartIcon } = useAction();
+  const { activeStartIcon } = useTypedSelector((state) => state.app);
+
   const onClose = () => {
-    setActiveWindow(currentWindow);
+    setActiveWindow({ id: currentWindow, label: windowData.title });
+  };
+  const onWindowClick = (e: MouseEvent<HTMLElement>) => {
+    e.stopPropagation();
+    setActiveStartIcon(currentWindow);
   };
   return (
     <Draggable
@@ -27,7 +34,13 @@ export const Window: FC<WindowProps> = ({
       bounds=".desktop"
       defaultPosition={{ x: 400, y: 400 }}
     >
-      <div className={styles.window} style={{ position: "absolute" }}>
+      <div
+        className={cn(styles.window, {
+          [styles.active]: currentWindow === activeStartIcon,
+        })}
+        style={{ position: "absolute" }}
+        onClick={onWindowClick}
+      >
         <header className={cn(styles.window_header, "window__header")}>
           <p className={styles.window_header__title}>{label}</p>
           <div className={styles.window_header__buttons}>
