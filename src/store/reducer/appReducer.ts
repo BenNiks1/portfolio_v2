@@ -1,17 +1,17 @@
-import { StartIcon } from "../../model/start";
-import { AppActions, AppActionTypes } from "../types";
+import { StartIcon } from '../../model/start'
+import { AppActions, AppActionTypes } from '../types'
 
 interface AppState {
-  activeIcon: number;
-  activeStartIcon: number;
-  activeWindow: StartIcon[];
+  activeIcon: number
+  activeStartIcon: number
+  activeWindow: StartIcon[]
 }
 
 const initialState: AppState = {
   activeIcon: 0,
   activeStartIcon: 0,
   activeWindow: [],
-};
+}
 
 export const appReducer = (
   state = initialState,
@@ -19,15 +19,15 @@ export const appReducer = (
 ): AppState => {
   switch (action.type) {
     case AppActionTypes.SET_ACTIVE_ICON:
-      return { ...state, activeIcon: action.payload };
+      return { ...state, activeIcon: action.payload }
     case AppActionTypes.SET_ACTIVE_WINDOW:
       return {
         ...state,
         activeWindow: action.payload,
-      };
+      }
     case AppActionTypes.SET_ACTIVE_START_ICON:
-      return { ...state, activeStartIcon: action.payload };
+      return { ...state, activeStartIcon: action.payload }
     default:
-      return state;
+      return state
   }
-};
+}

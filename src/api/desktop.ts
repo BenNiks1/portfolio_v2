@@ -1,3 +1,3 @@
-import axios from "axios";
+import axios from 'axios'
 
-export const getDesktopData = () => axios.get("./db.json");
+export const getDesktopData = () => axios.get('./db.json')

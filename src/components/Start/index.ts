@@ -1,2 +1,2 @@
-export * from "./Start";
-export * from "./StartMenu";
+export * from './Start'
+export * from './StartMenu'

@@ -1,1 +1,1 @@
-export * from "./DesktopIcon";
+export * from './DesktopIcon'

@@ -1,4 +1,4 @@
 export interface StartIcon {
-  id: number;
-  label: string;
+  id: number
+  label: string
 }

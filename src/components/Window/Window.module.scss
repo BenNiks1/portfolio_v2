@@ -1,4 +1,4 @@
-@import "../../assets/styles/mixins.scss";
+@import '../../assets/styles/mixins.scss';
 
 .window {
   max-width: 600px;
@@ -7,6 +7,7 @@
   @include primaryShadow();
   padding: 4px;
   z-index: 10;
+
   &.active {
     z-index: 20;
     .window_header {
