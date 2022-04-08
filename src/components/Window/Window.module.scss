@@ -1,13 +1,24 @@
 @import '../../assets/styles/mixins.scss';
 
+$headerHeight: 25px;
+
 .window {
   max-width: 600px;
   width: 100%;
   background-color: var(--primary-grey);
   @include primaryShadow();
   padding: 4px;
+  position: absolute;
   z-index: 10;
 
+  &.expand {
+    width: 100%;
+    height: calc(100% - 38px);
+    top: 0;
+    left: 0;
+    max-width: unset;
+    transform: unset !important;
+  }
   &.active {
     z-index: 20;
     .window_header {
@@ -82,6 +93,7 @@
     background-color: #fff;
     margin: 4px 0;
     padding: 5px;
+    height: calc(100% - $headerHeight);
     @include reverseShadow();
   }
 }

@@ -168,9 +168,9 @@
   },
   "lint-staged": {
     "*.{jsx,ts,tsx}": [
-      "yarn format",
-      "yarn lint",
-      "git add *"
+      "npm run format",
+      "npm run lint",
+      "git add ."
     ]
   }
 }

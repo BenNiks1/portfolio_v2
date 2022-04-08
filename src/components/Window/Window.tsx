@@ -1,10 +1,10 @@
-import { FC, MouseEvent } from 'react'
+import { FC, MouseEvent, useEffect, useState } from 'react'
 import { ReactComponent as CloseIcon } from '../../assets/closeIcon.svg'
 import { useAction, useTypedSelector } from '../../hooks'
 import styles from './Window.module.scss'
 import Draggable from 'react-draggable'
 import cn from 'classnames'
-import { WindowData } from '../../model'
+import { Position, WindowData } from '../../model'
 
 interface WindowProps {
   currentWindow: number
@@ -17,36 +17,73 @@ export const Window: FC<WindowProps> = ({
   windowData,
   label,
 }) => {
-  const { setActiveWindow, setActiveStartIcon } = useAction()
-  const { activeStartIcon } = useTypedSelector(state => state.app)
-
+  const [initialPosition, setInitialPosition] = useState<Position | null>(null)
+  const {
+    setActiveWindow,
+    setActiveStartIcon,
+    setMinimizeWindow,
+    setActiveIcon,
+    setExpandWindow,
+  } = useAction()
+  const { activeStartIcon, minimizeWindow, expandWindow } = useTypedSelector(
+    state => state.app
+  )
   const onClose = () => {
     setActiveWindow({ id: currentWindow, label: windowData.title })
+    expandWindow.includes(currentWindow) && setExpandWindow(currentWindow)
   }
   const onWindowClick = (e: MouseEvent<HTMLElement>) => {
     e.stopPropagation()
     setActiveStartIcon(currentWindow)
   }
+
+  const onMinimize = (e: MouseEvent<HTMLElement>) => {
+    e.stopPropagation()
+    setMinimizeWindow(currentWindow)
+    setActiveIcon(0)
+    setActiveStartIcon(0)
+  }
+
+  useEffect(() => {
+    if (expandWindow.includes(currentWindow)) {
+      setInitialPosition({ x: 0, y: 0 })
+    } else {
+      setInitialPosition(null)
+    }
+  }, [expandWindow])
+
   return (
     <Draggable
       handle='.window__header'
       bounds='.desktop'
-      defaultPosition={{ x: 400, y: 400 }}
+      // @ts-ignore
+      position={initialPosition}
+      defaultPosition={{ x: 300, y: 300 }}
     >
       <div
         className={cn(styles.window, {
           [styles.active]: currentWindow === activeStartIcon,
+          [styles.expand]: expandWindow.includes(currentWindow),
         })}
-        style={{ position: 'absolute' }}
+        style={{
+          display: minimizeWindow.includes(currentWindow) ? 'none' : 'block',
+        }}
         onClick={onWindowClick}
       >
+        {/* TODO: вынести в отдельный компонент WindowHeader */}
         <header className={cn(styles.window_header, 'window__header')}>
           <p className={styles.window_header__title}>{label}</p>
           <div className={styles.window_header__buttons}>
-            <button className={styles.window_header__button}>
+            <button
+              className={styles.window_header__button}
+              onClick={onMinimize}
+            >
               <span className={styles.minimize_icon} />
             </button>
-            <button className={styles.window_header__button}>
+            <button
+              className={styles.window_header__button}
+              onClick={() => setExpandWindow(currentWindow)}
+            >
               <span className={styles.expand_icon} />
             </button>
 

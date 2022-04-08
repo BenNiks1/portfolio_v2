@@ -5,12 +5,14 @@ import { StartMenu } from '.'
 import cn from 'classnames'
 import { Clock } from '..'
 import { useAction, useTypedSelector } from '../../hooks'
-import { StartIcon } from '../../model/start'
+import { StartIcon } from '../../model'
 
 export const Start: FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
-  const { setActiveStartIcon } = useAction()
-  const { activeWindow, activeStartIcon } = useTypedSelector(state => state.app)
+  const { setActiveStartIcon, setMinimizeWindow } = useAction()
+  const { activeWindow, activeStartIcon, minimizeWindow } = useTypedSelector(
+    state => state.app
+  )
   return (
     <div className={styles.start_panel}>
       <div className={styles.start_panel__wrapper}>
@@ -32,6 +34,8 @@ export const Start: FC = () => {
               })}
               onClick={() => {
                 setActiveStartIcon(window.id)
+                minimizeWindow.includes(window.id) &&
+                  setMinimizeWindow(window.id)
               }}
             >
               {window.label}

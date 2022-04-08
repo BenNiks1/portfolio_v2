@@ -2,7 +2,7 @@ import classNames from 'classnames'
 import { FC, MouseEvent } from 'react'
 import { useAction, useTypedSelector } from '../../hooks'
 import { WindowData } from '../../model'
-import { StartIcon } from '../../model/start'
+import { StartIcon } from '../../model'
 import { Window } from '../Window'
 import styles from './DesktopIcon.module.scss'
 
