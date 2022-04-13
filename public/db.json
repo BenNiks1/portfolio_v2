@@ -1,0 +1,20 @@
+[
+  {
+    "label": "My Computer",
+    "currentIcon": 1,
+    "icon": "./assets/computer.png",
+    "window": {
+      "title": "Window inner title",
+      "text": "Window inner text"
+    }
+  },
+  {
+    "label": "Other My Computer",
+    "currentIcon": 2,
+    "icon": "./assets/computer.png",
+    "window": {
+      "title": "Window inner title other",
+      "text": "Window inner text other"
+    }
+  }
+]

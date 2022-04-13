@@ -1,0 +1,19 @@
+.bios {
+  height: 100vh;
+  padding: 25px;
+  color: #fff;
+  background: #000;
+  &__wrapper {
+    max-width: 600px;
+    line-height: 35px;
+    letter-spacing: 1.7px;
+  }
+  &__underline {
+    animation: blink 1s steps(1) infinite;
+  }
+}
+@keyframes blink {
+  50% {
+    color: transparent;
+  }
+}

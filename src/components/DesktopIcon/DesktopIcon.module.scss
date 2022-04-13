@@ -1,0 +1,26 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  grid-gap: 4px;
+  max-width: 100px;
+  width: 100%;
+  cursor: pointer;
+  .label {
+    font-size: 13px;
+    color: var(--icon-label);
+    border: 1px solid transparent;
+    padding: 3px;
+  }
+}
+
+.clicked {
+  .label {
+    border: 1px dotted #fff;
+    background-color: #000080;
+  }
+  .icon::before {
+    content: '';
+    background-color: black;
+  }
+}

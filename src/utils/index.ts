@@ -1,1 +1,1 @@
-export * from "./constance";
+export * from './constance'
