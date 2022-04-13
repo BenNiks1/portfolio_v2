@@ -1,4 +1,5 @@
 import { StartIcon } from '../../model'
+import { POWER_STATUS_START } from '../../utils'
 import { AppActions, AppActionTypes } from '../types'
 
 interface AppState {
@@ -7,6 +8,7 @@ interface AppState {
   minimizeWindow: number[]
   expandWindow: number[]
   activeWindow: StartIcon[]
+  powerStatus: string
 }
 
 const initialState: AppState = {
@@ -15,6 +17,7 @@ const initialState: AppState = {
   minimizeWindow: [],
   expandWindow: [],
   activeWindow: [],
+  powerStatus: localStorage.getItem('powerStatus') || POWER_STATUS_START,
 }
 
 export const appReducer = (
@@ -35,6 +38,8 @@ export const appReducer = (
       return { ...state, minimizeWindow: action.payload }
     case AppActionTypes.SET_EXPAND_WINDOW:
       return { ...state, expandWindow: action.payload }
+    case AppActionTypes.SET_POWER_STATUS:
+      return { ...state, powerStatus: action.payload }
     default:
       return state
   }

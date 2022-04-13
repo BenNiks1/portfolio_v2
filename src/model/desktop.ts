@@ -7,5 +7,5 @@ export interface DesktopData {
 
 export interface WindowData {
   title: string
-  text?: string
+  text: string
 }

@@ -6,6 +6,7 @@ export enum AppActionTypes {
   SET_ACTIVE_START_ICON = 'SET_ACTIVE_START_ICON',
   SET_MINIMIZE_WINDOW = 'SET_MINIMIZE_WINDOW',
   SET_EXPAND_WINDOW = 'SET_EXPAND_WINDOW',
+  SET_POWER_STATUS = 'SET_POWER_STATUS',
 }
 
 export type AppActions =
@@ -14,6 +15,7 @@ export type AppActions =
   | setActiveStartIcon
   | setMinimizeWindow
   | setExpandWindow
+  | setPowerStatus
 
 export interface setActiveIcon {
   type: AppActionTypes.SET_ACTIVE_ICON
@@ -37,4 +39,9 @@ export interface setMinimizeWindow {
 export interface setExpandWindow {
   type: AppActionTypes.SET_EXPAND_WINDOW
   payload: number[]
+}
+
+export interface setPowerStatus {
+  type: AppActionTypes.SET_POWER_STATUS
+  payload: string
 }

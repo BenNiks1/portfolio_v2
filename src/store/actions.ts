@@ -64,3 +64,10 @@ export const setExpandWindow =
       })
     }
   }
+
+export const setPowerStatus =
+  (value: string) => (dispatch: Dispatch<AppActions>) =>
+    dispatch({
+      type: AppActionTypes.SET_POWER_STATUS,
+      payload: value,
+    })

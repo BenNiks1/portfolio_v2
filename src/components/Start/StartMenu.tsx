@@ -4,12 +4,15 @@ import classNames from 'classnames'
 import styles from './Start.module.scss'
 import win95 from '../../assets/win95Start.png'
 import shutdown from '../../assets/shutdown.png'
+import { useAction } from '../../hooks'
+import { POWER_STATUS_OFF, POWER_STATUS_SHUTDOWN } from '../../utils'
 
 interface StartMenuProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>
 }
 
 export const StartMenu: FC<StartMenuProps> = ({ setIsOpen }) => {
+  const { setPowerStatus } = useAction()
   const startMenuRef = useRef<HTMLDivElement>(null)
   useEffect(() => {
     const handleClickOutside = (event: Event) => {
@@ -41,10 +44,12 @@ export const StartMenu: FC<StartMenuProps> = ({ setIsOpen }) => {
               styles.nav__list_item,
               styles.nav__list_shutdown
             )}
-            // TODO: Сделать кнопку перезагрузки и загрузкой биоса
-            // onClick={() => {
-            //   window.close();
-            // }}
+            onClick={() => {
+              setTimeout(() => {
+                setPowerStatus(POWER_STATUS_SHUTDOWN)
+              }, 2000)
+              setPowerStatus(POWER_STATUS_OFF)
+            }}
           >
             <img
               src={shutdown}
