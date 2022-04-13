@@ -18,8 +18,12 @@ export const App = () => {
     if (powerStatus === POWER_STATUS_START) {
       localStorage.setItem('powerStatus', POWER_STATUS_START)
       setTimeout(() => {
-        localStorage.setItem('powerStatus', POWER_STATUS_ON)
-        setPowerStatus(POWER_STATUS_ON)
+        localStorage.setItem('powerStatus', POWER_STATUS_SHUTDOWN)
+        setPowerStatus(POWER_STATUS_SHUTDOWN)
+        setTimeout(() => {
+          localStorage.setItem('powerStatus', POWER_STATUS_ON)
+          setPowerStatus(POWER_STATUS_ON)
+        }, 2000)
       }, 4000)
     } else if (powerStatus === POWER_STATUS_OFF) {
       localStorage.setItem('powerStatus', POWER_STATUS_OFF)

@@ -46,9 +46,9 @@ export const StartMenu: FC<StartMenuProps> = ({ setIsOpen }) => {
             )}
             onClick={() => {
               setTimeout(() => {
-                setPowerStatus(POWER_STATUS_SHUTDOWN)
+                setPowerStatus(POWER_STATUS_OFF)
               }, 2000)
-              setPowerStatus(POWER_STATUS_OFF)
+              setPowerStatus(POWER_STATUS_SHUTDOWN)
             }}
           >
             <img
