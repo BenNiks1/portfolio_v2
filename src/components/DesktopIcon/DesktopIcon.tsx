@@ -10,7 +10,8 @@ interface DesktopIconProps {
   label: string
   icon: string
   currentIcon: number
-  windowData: WindowData
+  hasChildren?: boolean
+  windowData?: WindowData
 }
 
 export const DesktopIcon: FC<DesktopIconProps> = ({
@@ -18,6 +19,7 @@ export const DesktopIcon: FC<DesktopIconProps> = ({
   icon,
   currentIcon,
   windowData,
+  hasChildren,
 }) => {
   const { setActiveWindow, setActiveIcon, setActiveStartIcon } = useAction()
   const { activeWindow, activeIcon } = useTypedSelector(state => state.app)
@@ -37,7 +39,6 @@ export const DesktopIcon: FC<DesktopIconProps> = ({
         return
     }
   }
-
   return (
     <>
       <div
@@ -54,6 +55,7 @@ export const DesktopIcon: FC<DesktopIconProps> = ({
           currentWindow={currentIcon}
           windowData={windowData}
           label={label}
+          hasChildren={hasChildren}
         />
       )}
     </>
