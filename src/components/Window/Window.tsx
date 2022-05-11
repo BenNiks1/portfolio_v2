@@ -6,6 +6,7 @@ import cn from 'classnames'
 import { Position, WindowData } from '../../model'
 import { WindowHeader } from './components'
 import { DesktopIcon } from '../DesktopIcon'
+import { Game } from '../Game'
 
 interface WindowProps {
   currentWindow: number
@@ -45,7 +46,7 @@ export const Window: FC<WindowProps> = ({
       bounds='.desktop'
       // @ts-ignore
       position={initialPosition}
-      defaultPosition={{ x: 300, y: 300 }}
+      defaultPosition={{ x: 150, y: 150 }}
     >
       <div
         className={cn(styles.window, {
@@ -63,14 +64,16 @@ export const Window: FC<WindowProps> = ({
           windowData={windowData}
         />
         <main className={styles.window_content}>
-          {hasChildren ? (
+          {hasChildren && windowData ? (
             <DesktopIcon
-              icon={windowData?.icon as string}
-              label={windowData?.label as string}
-              currentIcon={windowData?.currentIcon as number}
-              windowData={windowData?.window}
-              hasChildren={windowData?.hasChildren}
+              icon={windowData.icon}
+              label={windowData.label}
+              currentIcon={windowData.currentIcon}
+              windowData={windowData.window}
+              hasChildren={windowData.hasChildren}
             />
+          ) : windowData?.isGame ? (
+            <Game />
           ) : (
             <>
               <h2>{windowData?.title}</h2>

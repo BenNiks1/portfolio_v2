@@ -43,7 +43,10 @@ export const WindowHeader: FC<WindowHeaderProps> = ({
           <span className={styles.minimize_icon} />
         </button>
         <button
-          className={styles.window_header__button}
+          disabled={windowData?.isGame}
+          className={cn(styles.window_header__button, {
+            [styles.window_header__button_disabled]: windowData?.isGame,
+          })}
           onClick={() => setExpandWindow(currentWindow)}
         >
           <span className={styles.expand_icon} />

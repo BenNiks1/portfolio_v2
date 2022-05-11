@@ -6,7 +6,7 @@
     "hasChildren": false,
     "window": {
       "title": "Window inner title",
-      "text": "Window inner text"
+      "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos iste officiis repellat corporis maxime nihil minima magni provident ducimus dolore sequi amet, porro repellendus fuga magnam hic, deserunt, ipsa officia dolorum unde. Enim, id odio! Assumenda ea laudantium vitae sequi."
     }
   },
   {
@@ -16,7 +16,7 @@
     "hasChildren": false,
     "window": {
       "title": "Window inner title other",
-      "text": "Window inner text other"
+      "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos iste officiis repellat corporis maxime nihil minima magni provident ducimus dolore sequi amet, porro repellendus fuga magnam hic, deserunt, ipsa officia dolorum unde. Enim, id odio! Assumenda ea laudantium vitae sequi."
     }
   },
   {
@@ -33,6 +33,14 @@
         "title": "old portfolio",
         "text": "link to portfolio"
       }
+    }
+  },
+  {
+    "label": "game.exe",
+    "currentIcon": 5,
+    "icon": "./assets/game.png",
+    "window": {
+      "isGame": true
     }
   }
 ]

@@ -3,7 +3,7 @@
 $headerHeight: 25px;
 
 .window {
-  max-width: 600px;
+  max-width: 1000px;
   width: 100%;
   background-color: var(--primary-grey);
   @include primaryShadow();
@@ -57,6 +57,13 @@ $headerHeight: 25px;
       cursor: pointer;
       box-shadow: -6px -6.2px 1px -5px rgba(0, 0, 0, 1) inset,
         7px 7px 0px -6px rgba(255, 255, 255, 0.6) inset;
+      &_disabled {
+        cursor: not-allowed;
+        .expand_icon {
+          border: 2px solid #808080 !important;
+          border-top-width: 3px !important;
+        }
+      }
       &:active {
         padding: 2px 0 0 2px;
         box-shadow: -6px -6.2px 1px -5px rgba(255, 255, 255, 0.6) inset,
