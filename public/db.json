@@ -4,19 +4,23 @@
     "currentIcon": 1,
     "icon": "./assets/computer.png",
     "hasChildren": false,
-    "window": {
+    "x": 300,
+    "y": 300,
+    "windowData": {
       "title": "Window inner title",
       "text": "Window inner text"
     }
   },
   {
-    "label": "Other My Computer",
+    "label": "Settings",
     "currentIcon": 2,
-    "icon": "./assets/computer.png",
+    "icon": "./assets/settings.png",
     "hasChildren": false,
-    "window": {
-      "title": "Window inner title other",
-      "text": "Window inner text other"
+    "x": 320,
+    "y": 320,
+    "windowData": {
+      "title": "Settings",
+      "text": "Settings in progress..."
     }
   },
   {
@@ -31,12 +35,15 @@
     "currentIcon": 4,
     "icon": "./assets/trash.png",
     "hasChildren": true,
-    "window": {
+    "x": 340,
+    "y": 340,
+    "windowData": {
       "label": "old portfolio",
       "currentIcon": 5,
       "icon": "./assets/note.png",
       "hasChildren": false,
-      "link": "https://benniks1.github.io/sychev/"
+      "link": "https://benniks1.github.io/sychev/",
+      "windowData": {}
     }
   }
 ]

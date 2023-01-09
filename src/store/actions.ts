@@ -19,6 +19,12 @@ export const setActiveWindow =
     }
   }
 
+export const clearActiveWindows = () => (dispatch: Dispatch<AppActions>) =>
+  dispatch({
+    type: AppActionTypes.CLEAR_ACTIVE_WINDOWS,
+    payload: [],
+  })
+
 export const setActiveIcon =
   (value: number) => (dispatch: Dispatch<AppActions>) =>
     dispatch({
