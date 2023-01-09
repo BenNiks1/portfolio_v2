@@ -1,4 +1,4 @@
-import classNames from 'classnames'
+import cn from 'classnames'
 import { FC, MouseEvent } from 'react'
 import { useAction, useTypedSelector } from '../../hooks'
 import { WindowData } from '../../model'
@@ -10,7 +10,9 @@ interface DesktopIconProps {
   label: string
   icon: string
   currentIcon: number
-  windowData: WindowData
+  hasChildren?: boolean
+  windowData?: WindowData
+  link?: string
 }
 
 export const DesktopIcon: FC<DesktopIconProps> = ({
@@ -18,6 +20,8 @@ export const DesktopIcon: FC<DesktopIconProps> = ({
   icon,
   currentIcon,
   windowData,
+  hasChildren,
+  link,
 }) => {
   const { setActiveWindow, setActiveIcon, setActiveStartIcon } = useAction()
   const { activeWindow, activeIcon } = useTypedSelector(state => state.app)
@@ -30,19 +34,20 @@ export const DesktopIcon: FC<DesktopIconProps> = ({
       case 2:
         setActiveIcon(0)
         setActiveStartIcon(currentIcon)
-        !activeWindow.some((el: StartIcon) => el.id === currentIcon) &&
+        if (link?.length) window.open(link)
+        else if (!activeWindow.some((el: StartIcon) => el.id === currentIcon))
           setActiveWindow({ id: currentIcon, label })
         break
       default:
         return
     }
   }
-
   return (
     <>
       <div
-        className={classNames(styles.container, {
+        className={cn(styles.container, {
           [styles.clicked]: currentIcon === activeIcon,
+          [styles.children_icon]: link && windowData,
         })}
         onClick={handleIconClick}
       >
@@ -54,6 +59,7 @@ export const DesktopIcon: FC<DesktopIconProps> = ({
           currentWindow={currentIcon}
           windowData={windowData}
           label={label}
+          hasChildren={hasChildren}
         />
       )}
     </>

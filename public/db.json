@@ -3,6 +3,7 @@
     "label": "My Computer",
     "currentIcon": 1,
     "icon": "./assets/computer.png",
+    "hasChildren": false,
     "window": {
       "title": "Window inner title",
       "text": "Window inner text"
@@ -12,9 +13,30 @@
     "label": "Other My Computer",
     "currentIcon": 2,
     "icon": "./assets/computer.png",
+    "hasChildren": false,
     "window": {
       "title": "Window inner title other",
       "text": "Window inner text other"
+    }
+  },
+  {
+    "label": "GitHub",
+    "currentIcon": 3,
+    "icon": "./assets/gitHubWhite.png",
+    "hasChildren": false,
+    "link": "https://github.com/BenNiks1/portfolio_v2"
+  },
+  {
+    "label": "Recicle bin",
+    "currentIcon": 4,
+    "icon": "./assets/trash.png",
+    "hasChildren": true,
+    "window": {
+      "label": "old portfolio",
+      "currentIcon": 5,
+      "icon": "./assets/note.png",
+      "hasChildren": false,
+      "link": "https://benniks1.github.io/sychev/"
     }
   }
 ]

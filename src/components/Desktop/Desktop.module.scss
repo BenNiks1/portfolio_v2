@@ -4,7 +4,7 @@
 
   &__desktop {
     display: grid;
-    grid-template-rows: repeat(10, 70px);
+    grid-template-rows: repeat(10, 1fr);
     grid-gap: 15px;
     width: 100%;
     padding: 20px 10px;

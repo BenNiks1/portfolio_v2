@@ -1,47 +1,34 @@
 import { FC, MouseEvent, useEffect, useState } from 'react'
-import { ReactComponent as CloseIcon } from '../../assets/closeIcon.svg'
 import { useAction, useTypedSelector } from '../../hooks'
 import styles from './Window.module.scss'
 import Draggable from 'react-draggable'
 import cn from 'classnames'
 import { Position, WindowData } from '../../model'
+import { WindowHeader } from './components'
+import { DesktopIcon } from '../DesktopIcon'
 
 interface WindowProps {
   currentWindow: number
   label: string
-  windowData: WindowData
+  hasChildren?: boolean
+  windowData?: WindowData
 }
 
 export const Window: FC<WindowProps> = ({
   currentWindow,
   windowData,
   label,
+  hasChildren,
 }) => {
   const [initialPosition, setInitialPosition] = useState<Position | null>(null)
-  const {
-    setActiveWindow,
-    setActiveStartIcon,
-    setMinimizeWindow,
-    setActiveIcon,
-    setExpandWindow,
-  } = useAction()
+  const { setActiveStartIcon } = useAction()
   const { activeStartIcon, minimizeWindow, expandWindow } = useTypedSelector(
     state => state.app
   )
-  const onClose = () => {
-    setActiveWindow({ id: currentWindow, label: windowData.title })
-    expandWindow.includes(currentWindow) && setExpandWindow(currentWindow)
-  }
+
   const onWindowClick = (e: MouseEvent<HTMLElement>) => {
     e.stopPropagation()
     setActiveStartIcon(currentWindow)
-  }
-
-  const onMinimize = (e: MouseEvent<HTMLElement>) => {
-    e.stopPropagation()
-    setMinimizeWindow(currentWindow)
-    setActiveIcon(0)
-    setActiveStartIcon(0)
   }
 
   useEffect(() => {
@@ -70,34 +57,26 @@ export const Window: FC<WindowProps> = ({
         }}
         onClick={onWindowClick}
       >
-        {/* TODO: вынести в отдельный компонент WindowHeader */}
-        <header className={cn(styles.window_header, 'window__header')}>
-          <p className={styles.window_header__title}>{label}</p>
-          <div className={styles.window_header__buttons}>
-            <button
-              className={styles.window_header__button}
-              onClick={onMinimize}
-            >
-              <span className={styles.minimize_icon} />
-            </button>
-            <button
-              className={styles.window_header__button}
-              onClick={() => setExpandWindow(currentWindow)}
-            >
-              <span className={styles.expand_icon} />
-            </button>
-
-            <button className={styles.window_header__button} onClick={onClose}>
-              <CloseIcon
-                viewBox='0 0 460.775 460.775'
-                className={styles.close_icon}
-              />
-            </button>
-          </div>
-        </header>
+        <WindowHeader
+          label={label}
+          currentWindow={currentWindow}
+          windowData={windowData}
+        />
         <main className={styles.window_content}>
-          <h2>{windowData.title}</h2>
-          <p>{windowData.text}</p>
+          {hasChildren ? (
+            <DesktopIcon
+              icon={windowData?.icon as string}
+              label={windowData?.label as string}
+              currentIcon={windowData?.currentIcon as number}
+              windowData={windowData}
+              link={windowData?.link}
+            />
+          ) : (
+            <>
+              <h2>{windowData?.title}</h2>
+              <p>{windowData?.text}</p>
+            </>
+          )}
         </main>
       </div>
     </Draggable>

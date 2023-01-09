@@ -2,10 +2,12 @@ export interface DesktopData {
   label: string
   currentIcon: number
   icon: string
-  window: WindowData
+  hasChildren: boolean
+  window?: WindowData
+  link?: string
 }
 
-export interface WindowData {
+export interface WindowData extends DesktopData {
   title: string
   text: string
 }

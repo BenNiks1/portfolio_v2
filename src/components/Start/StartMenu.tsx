@@ -1,5 +1,5 @@
 import { FC, Dispatch, SetStateAction, useRef, useEffect } from 'react'
-import classNames from 'classnames'
+import cn from 'classnames'
 
 import styles from './Start.module.scss'
 import win95 from '../../assets/win95Start.png'
@@ -40,10 +40,7 @@ export const StartMenu: FC<StartMenuProps> = ({ setIsOpen }) => {
           <li className={styles.nav__list_item}>asdasd</li>
           <li className={styles.nav__list_item}>asdasd</li>
           <li
-            className={classNames(
-              styles.nav__list_item,
-              styles.nav__list_shutdown
-            )}
+            className={cn(styles.nav__list_item, styles.nav__list_shutdown)}
             onClick={() => {
               setTimeout(() => {
                 setPowerStatus(POWER_STATUS_OFF)

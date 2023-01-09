@@ -15,11 +15,11 @@ export const Desktop: FC = () => {
       onError(error) {
         console.error(error)
       },
+      refetchOnWindowFocus: false,
     }
   )
   const { setActiveIcon, setActiveStartIcon } = useAction()
   const { activeStartIcon, activeIcon } = useTypedSelector(state => state.app)
-
   const onDesktopClick = () => {
     activeIcon && setActiveIcon(0)
     activeStartIcon && setActiveStartIcon(0)
@@ -33,11 +33,13 @@ export const Desktop: FC = () => {
       >
         {response?.data.map((iconData: DesktopData) => (
           <DesktopIcon
+            hasChildren={iconData.hasChildren}
             key={iconData.currentIcon}
             icon={iconData.icon}
             label={iconData.label}
             currentIcon={iconData.currentIcon}
             windowData={iconData.window}
+            link={iconData?.link}
           />
         ))}
       </div>

@@ -7,6 +7,7 @@
   width: 100%;
   cursor: pointer;
   .label {
+    text-align: center;
     font-size: 13px;
     color: var(--icon-label);
     border: 1px solid transparent;
@@ -14,13 +15,26 @@
   }
 }
 
+.children_icon {
+  max-width: 80px;
+  .label {
+    color: var(--primary-black);
+  }
+
+  &.clicked {
+    .label {
+      color: var(--icon-label);
+    }
+  }
+}
+
 .clicked {
   .label {
     border: 1px dotted #fff;
-    background-color: #000080;
+    background-color: var(--secondary-blue);
   }
   .icon::before {
     content: '';
-    background-color: black;
+    background-color: var(--primary-black);
   }
 }
