@@ -32,15 +32,7 @@ export const Desktop: FC = () => {
         onClick={onDesktopClick}
       >
         {response?.data.map((iconData: DesktopData) => (
-          <DesktopIcon
-            hasChildren={iconData.hasChildren}
-            key={iconData.currentIcon}
-            icon={iconData.icon}
-            label={iconData.label}
-            currentIcon={iconData.currentIcon}
-            windowData={iconData.window}
-            link={iconData?.link}
-          />
+          <DesktopIcon key={iconData.currentIcon} {...iconData} />
         ))}
       </div>
       <div className={styles.windows__start}>

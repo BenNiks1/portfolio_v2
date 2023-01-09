@@ -1,4 +1,5 @@
 export interface DesktopData {
+  id: number
   label: string
   currentIcon: number
   icon: string
