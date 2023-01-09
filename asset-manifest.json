@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/portfolio_v2/static/css/main.5b3fae89.css",
+    "main.js": "/portfolio_v2/static/js/main.40e28a29.js",
+    "static/js/787.d9a20797.chunk.js": "/portfolio_v2/static/js/787.d9a20797.chunk.js",
+    "static/media/shutdownLogo.png": "/portfolio_v2/static/media/shutdownLogo.fe567059fa6cceec8197.png",
+    "static/media/shutdownTitle.png": "/portfolio_v2/static/media/shutdownTitle.3878d80c6e5a89b30b6e.png",
+    "static/media/MicrosoftSansSerif.ttf": "/portfolio_v2/static/media/MicrosoftSansSerif.a8e45f570cbd2658b2be.ttf",
+    "static/media/MicrosoftSansSerif.svg": "/portfolio_v2/static/media/MicrosoftSansSerif.c848b1d3b6b4bb434d18.svg",
+    "static/media/MicrosoftSansSerif.woff": "/portfolio_v2/static/media/MicrosoftSansSerif.b1e72235c2288b19c37e.woff",
+    "static/media/MicrosoftSansSerif.eot": "/portfolio_v2/static/media/MicrosoftSansSerif.52d9d1715da2c06d5c5c.eot",
+    "static/media/MicrosoftSansSerif.woff2": "/portfolio_v2/static/media/MicrosoftSansSerif.41213e4c5cef19df9016.woff2",
+    "static/media/power.svg": "/portfolio_v2/static/media/power.18f2a7f463decd0474e263768d9ec7d7.svg",
+    "static/media/closeIcon.svg": "/portfolio_v2/static/media/closeIcon.735f51e7772e75b1f2399cde0da95a5e.svg",
+    "index.html": "/portfolio_v2/index.html",
+    "main.5b3fae89.css.map": "/portfolio_v2/static/css/main.5b3fae89.css.map",
+    "main.40e28a29.js.map": "/portfolio_v2/static/js/main.40e28a29.js.map",
+    "787.d9a20797.chunk.js.map": "/portfolio_v2/static/js/787.d9a20797.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5b3fae89.css",
+    "static/js/main.40e28a29.js"
+  ]
+}
