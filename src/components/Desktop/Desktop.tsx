@@ -36,7 +36,7 @@ export const Desktop: FC = () => {
         ))}
       </div>
       <div className={styles.windows__start}>
-        <Start />
+        <Start menuData={response?.data} />
       </div>
     </main>
   )

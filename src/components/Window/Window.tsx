@@ -3,36 +3,38 @@ import { useAction, useTypedSelector } from '../../hooks'
 import styles from './Window.module.scss'
 import Draggable from 'react-draggable'
 import cn from 'classnames'
-import { Position, WindowData } from '../../model'
+import { DesktopData, Position, WindowData } from '../../model'
 import { WindowHeader } from './components'
 import { DesktopIcon } from '../DesktopIcon'
 
 interface WindowProps {
-  currentWindow: number
+  currentIcon: number
   label: string
   hasChildren?: boolean
   windowData?: WindowData
+  x?: number
+  y?: number
 }
 
 export const Window: FC<WindowProps> = ({
-  currentWindow,
+  currentIcon,
   windowData,
   label,
   hasChildren,
+  ...props
 }) => {
   const [initialPosition, setInitialPosition] = useState<Position | null>(null)
   const { setActiveStartIcon } = useAction()
   const { activeStartIcon, minimizeWindow, expandWindow } = useTypedSelector(
     state => state.app
   )
-
   const onWindowClick = (e: MouseEvent<HTMLElement>) => {
     e.stopPropagation()
-    setActiveStartIcon(currentWindow)
+    setActiveStartIcon(currentIcon)
   }
 
   useEffect(() => {
-    if (expandWindow.includes(currentWindow)) {
+    if (expandWindow.includes(currentIcon)) {
       setInitialPosition({ x: 0, y: 0 })
     } else {
       setInitialPosition(null)
@@ -40,37 +42,31 @@ export const Window: FC<WindowProps> = ({
   }, [expandWindow])
 
   return (
+    // @ts-expect-error
     <Draggable
       handle='.window__header'
       bounds='.desktop'
-      // @ts-ignore
       position={initialPosition}
-      defaultPosition={{ x: 300, y: 300 }}
+      defaultPosition={{ x: props.x, y: props.y }}
     >
       <div
         className={cn(styles.window, {
-          [styles.active]: currentWindow === activeStartIcon,
-          [styles.expand]: expandWindow.includes(currentWindow),
+          [styles.active]: currentIcon === activeStartIcon,
+          [styles.expand]: expandWindow.includes(currentIcon),
         })}
         style={{
-          display: minimizeWindow.includes(currentWindow) ? 'none' : 'block',
+          display: minimizeWindow.includes(currentIcon) ? 'none' : 'block',
         }}
         onClick={onWindowClick}
       >
         <WindowHeader
           label={label}
-          currentWindow={currentWindow}
+          currentWindow={currentIcon}
           windowData={windowData}
         />
         <main className={styles.window_content}>
           {hasChildren ? (
-            <DesktopIcon
-              icon={windowData?.icon as string}
-              label={windowData?.label as string}
-              currentIcon={windowData?.currentIcon as number}
-              windowData={windowData}
-              link={windowData?.link}
-            />
+            <DesktopIcon {...(windowData as DesktopData)} />
           ) : (
             <>
               <h2>{windowData?.title}</h2>

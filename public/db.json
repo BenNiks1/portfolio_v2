@@ -4,6 +4,8 @@
     "currentIcon": 1,
     "icon": "./assets/computer.png",
     "hasChildren": false,
+    "x": 300,
+    "y": 300,
     "windowData": {
       "title": "Window inner title",
       "text": "Window inner text"
@@ -14,6 +16,8 @@
     "currentIcon": 2,
     "icon": "./assets/settings.png",
     "hasChildren": false,
+    "x": 320,
+    "y": 320,
     "windowData": {
       "title": "Settings",
       "text": "Settings in progress..."
@@ -31,12 +35,15 @@
     "currentIcon": 4,
     "icon": "./assets/trash.png",
     "hasChildren": true,
+    "x": 340,
+    "y": 340,
     "windowData": {
       "label": "old portfolio",
       "currentIcon": 5,
       "icon": "./assets/note.png",
       "hasChildren": false,
-      "link": "https://benniks1.github.io/sychev/"
+      "link": "https://benniks1.github.io/sychev/",
+      "windowData": {}
     }
   }
 ]

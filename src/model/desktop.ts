@@ -6,6 +6,8 @@ export interface DesktopData {
   hasChildren: boolean
   window?: WindowData
   link?: string
+  x: number
+  y: number
 }
 
 export interface WindowData extends DesktopData {

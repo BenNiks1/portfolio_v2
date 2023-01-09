@@ -32,6 +32,8 @@ export const appReducer = (
         ...state,
         activeWindow: action.payload,
       }
+    case AppActionTypes.CLEAR_ACTIVE_WINDOWS:
+      return { ...state, activeWindow: [] }
     case AppActionTypes.SET_ACTIVE_START_ICON:
       return { ...state, activeStartIcon: action.payload }
     case AppActionTypes.SET_MINIMIZE_WINDOW:
