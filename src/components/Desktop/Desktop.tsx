@@ -15,6 +15,7 @@ export const Desktop: FC = () => {
       onError(error) {
         console.error(error)
       },
+      refetchOnWindowFocus: false,
     }
   )
   const { setActiveIcon, setActiveStartIcon } = useAction()
@@ -38,6 +39,7 @@ export const Desktop: FC = () => {
             label={iconData.label}
             currentIcon={iconData.currentIcon}
             windowData={iconData.window}
+            link={iconData?.link}
           />
         ))}
       </div>

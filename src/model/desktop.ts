@@ -4,6 +4,7 @@ export interface DesktopData {
   icon: string
   hasChildren: boolean
   window?: WindowData
+  link?: string
 }
 
 export interface WindowData extends DesktopData {

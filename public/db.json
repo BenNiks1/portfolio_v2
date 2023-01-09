@@ -20,19 +20,23 @@
     }
   },
   {
-    "label": "Recicle bin",
+    "label": "GitHub",
     "currentIcon": 3,
+    "icon": "./assets/gitHubWhite.png",
+    "hasChildren": false,
+    "link": "https://github.com/BenNiks1/portfolio_v2"
+  },
+  {
+    "label": "Recicle bin",
+    "currentIcon": 4,
     "icon": "./assets/trash.png",
     "hasChildren": true,
     "window": {
       "label": "old portfolio",
-      "currentIcon": 4,
+      "currentIcon": 5,
       "icon": "./assets/note.png",
       "hasChildren": false,
-      "window": {
-        "title": "old portfolio",
-        "text": "link to portfolio"
-      }
+      "link": "https://benniks1.github.io/sychev/"
     }
   }
 ]

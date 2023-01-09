@@ -68,8 +68,8 @@ export const Window: FC<WindowProps> = ({
               icon={windowData?.icon as string}
               label={windowData?.label as string}
               currentIcon={windowData?.currentIcon as number}
-              windowData={windowData?.window}
-              hasChildren={windowData?.hasChildren}
+              windowData={windowData}
+              link={windowData?.link}
             />
           ) : (
             <>
