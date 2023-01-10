@@ -5,9 +5,13 @@ import { StartMenu } from '.'
 import cn from 'classnames'
 import { Clock } from '..'
 import { useAction, useTypedSelector } from '../../hooks'
-import { StartIcon } from '../../model'
+import { DesktopData, StartIcon } from '../../model'
 
-export const Start: FC = () => {
+interface StartProps {
+  menuData: DesktopData[]
+}
+
+export const Start: FC<StartProps> = ({ menuData }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const { setActiveStartIcon, setMinimizeWindow } = useAction()
   const { activeWindow, activeStartIcon, minimizeWindow } = useTypedSelector(
@@ -43,7 +47,7 @@ export const Start: FC = () => {
           ))}
       </div>
       <Clock />
-      {isOpen && <StartMenu setIsOpen={setIsOpen} />}
+      {isOpen && <StartMenu setIsOpen={setIsOpen} menuData={menuData} />}
     </div>
   )
 }

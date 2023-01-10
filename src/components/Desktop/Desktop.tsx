@@ -15,6 +15,7 @@ export const Desktop: FC = () => {
       onError(error) {
         console.error(error)
       },
+      refetchOnWindowFocus: false,
     }
   )
   const { setActiveIcon, setActiveStartIcon } = useAction()
@@ -31,18 +32,11 @@ export const Desktop: FC = () => {
         onClick={onDesktopClick}
       >
         {response?.data.map((iconData: DesktopData) => (
-          <DesktopIcon
-            hasChildren={iconData.hasChildren}
-            key={iconData.currentIcon}
-            icon={iconData.icon}
-            label={iconData.label}
-            currentIcon={iconData.currentIcon}
-            windowData={iconData.window}
-          />
+          <DesktopIcon key={iconData.currentIcon} {...iconData} />
         ))}
       </div>
       <div className={styles.windows__start}>
-        <Start />
+        <Start menuData={response?.data} />
       </div>
     </main>
   )

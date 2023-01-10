@@ -34,6 +34,8 @@ $headerHeight: 25px;
     background-color: var(--secondary-grey);
 
     &__title {
+      width: 100%;
+      cursor: move;
       color: #fff;
       font-size: 14px;
       font-weight: 900;
@@ -99,7 +101,7 @@ $headerHeight: 25px;
   &_content {
     background-color: #fff;
     margin: 4px 0;
-    padding: 5px;
+    padding: 15px;
     height: calc(100% - $headerHeight);
     @include reverseShadow();
   }

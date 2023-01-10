@@ -4,42 +4,56 @@
     "currentIcon": 1,
     "icon": "./assets/computer.png",
     "hasChildren": false,
-    "window": {
+    "x": 300,
+    "y": 300,
+    "windowData": {
       "title": "Window inner title",
       "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos iste officiis repellat corporis maxime nihil minima magni provident ducimus dolore sequi amet, porro repellendus fuga magnam hic, deserunt, ipsa officia dolorum unde. Enim, id odio! Assumenda ea laudantium vitae sequi."
     }
   },
   {
-    "label": "Other My Computer",
+    "label": "Settings",
     "currentIcon": 2,
-    "icon": "./assets/computer.png",
+    "icon": "./assets/settings.png",
     "hasChildren": false,
-    "window": {
-      "title": "Window inner title other",
-      "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos iste officiis repellat corporis maxime nihil minima magni provident ducimus dolore sequi amet, porro repellendus fuga magnam hic, deserunt, ipsa officia dolorum unde. Enim, id odio! Assumenda ea laudantium vitae sequi."
+    "x": 320,
+    "y": 320,
+    "windowData": {
+      "title": "Settings",
+      "text": "Settings in progress..."
     }
   },
   {
-    "label": "Recicle bin",
+    "label": "GitHub",
     "currentIcon": 3,
+    "icon": "./assets/globe.png",
+    "hasChildren": false,
+    "link": "https://github.com/BenNiks1/portfolio_v2"
+  },
+  {
+    "label": "Recicle bin",
+    "currentIcon": 4,
     "icon": "./assets/trash.png",
     "hasChildren": true,
-    "window": {
+    "x": 340,
+    "y": 340,
+    "windowData": {
       "label": "old portfolio",
-      "currentIcon": 4,
+      "currentIcon": 5,
       "icon": "./assets/note.png",
       "hasChildren": false,
-      "window": {
-        "title": "old portfolio",
-        "text": "link to portfolio"
-      }
+      "link": "https://benniks1.github.io/sychev/",
+      "windowData": {}
     }
   },
   {
     "label": "game.exe",
-    "currentIcon": 5,
+    "currentIcon": 6,
     "icon": "./assets/game.png",
-    "window": {
+    "x": 300,
+    "y": 300,
+    "hasChildren": false,
+    "windowData": {
       "isGame": true
     }
   }

@@ -6,13 +6,13 @@ import cn from 'classnames'
 import { WindowData } from '../../../../model'
 
 interface WindowHeaderProps {
-  currentWindow: number
+  currentIcon: number
   label: string
   windowData?: WindowData
 }
 
 export const WindowHeader: FC<WindowHeaderProps> = ({
-  currentWindow,
+  currentIcon,
   label,
   windowData,
 }) => {
@@ -25,12 +25,12 @@ export const WindowHeader: FC<WindowHeaderProps> = ({
   } = useAction()
   const { expandWindow } = useTypedSelector(state => state.app)
   const onClose = () => {
-    setActiveWindow({ id: currentWindow, label: windowData?.title as string })
-    expandWindow.includes(currentWindow) && setExpandWindow(currentWindow)
+    setActiveWindow({ id: currentIcon, label: windowData?.title as string })
+    expandWindow.includes(currentIcon) && setExpandWindow(currentIcon)
   }
   const onMinimize = (e: MouseEvent<HTMLElement>) => {
     e.stopPropagation()
-    setMinimizeWindow(currentWindow)
+    setMinimizeWindow(currentIcon)
     setActiveIcon(0)
     setActiveStartIcon(0)
   }
@@ -47,7 +47,7 @@ export const WindowHeader: FC<WindowHeaderProps> = ({
           className={cn(styles.window_header__button, {
             [styles.window_header__button_disabled]: windowData?.isGame,
           })}
-          onClick={() => setExpandWindow(currentWindow)}
+          onClick={() => setExpandWindow(currentIcon)}
         >
           <span className={styles.expand_icon} />
         </button>

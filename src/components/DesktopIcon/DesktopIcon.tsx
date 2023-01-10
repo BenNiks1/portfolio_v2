@@ -1,4 +1,4 @@
-import classNames from 'classnames'
+import cn from 'classnames'
 import { FC, MouseEvent } from 'react'
 import { useAction, useTypedSelector } from '../../hooks'
 import { WindowData } from '../../model'
@@ -12,15 +12,14 @@ interface DesktopIconProps {
   currentIcon: number
   hasChildren?: boolean
   windowData?: WindowData
+  link?: string
+  x?: number
+  y?: number
 }
 
-export const DesktopIcon: FC<DesktopIconProps> = ({
-  label,
-  icon,
-  currentIcon,
-  windowData,
-  hasChildren,
-}) => {
+export const DesktopIcon: FC<DesktopIconProps> = props => {
+  const { currentIcon, link, icon } = props
+
   const { setActiveWindow, setActiveIcon, setActiveStartIcon } = useAction()
   const { activeWindow, activeIcon } = useTypedSelector(state => state.app)
   const handleIconClick = (e: MouseEvent<HTMLElement>) => {
@@ -32,8 +31,9 @@ export const DesktopIcon: FC<DesktopIconProps> = ({
       case 2:
         setActiveIcon(0)
         setActiveStartIcon(currentIcon)
-        !activeWindow.some((el: StartIcon) => el.id === currentIcon) &&
-          setActiveWindow({ id: currentIcon, label })
+        if (link?.length) window.open(link)
+        else if (!activeWindow.some((el: StartIcon) => el.id === currentIcon))
+          setActiveWindow({ id: currentIcon, label: props.label })
         break
       default:
         return
@@ -42,21 +42,17 @@ export const DesktopIcon: FC<DesktopIconProps> = ({
   return (
     <>
       <div
-        className={classNames(styles.container, {
+        className={cn(styles.container, {
           [styles.clicked]: currentIcon === activeIcon,
+          [styles.children_icon]: link && props.windowData,
         })}
         onClick={handleIconClick}
       >
         <img className={styles.icon} src={icon} alt='desctopIcon' />
-        <p className={styles.label}>{label}</p>
+        <p className={styles.label}>{props.label}</p>
       </div>
       {activeWindow.find((el: StartIcon) => el.id === currentIcon) && (
-        <Window
-          currentWindow={currentIcon}
-          windowData={windowData}
-          label={label}
-          hasChildren={hasChildren}
-        />
+        <Window {...props} />
       )}
     </>
   )
