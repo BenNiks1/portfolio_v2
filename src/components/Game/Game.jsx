@@ -22,8 +22,7 @@ import {
 export const Game = () => {
   const [start, setStar] = useState(false)
   const [userName, setUserName] = useState('')
-  // const [isDownPressed, setIsDownPressed] = useState(false)
-  // const [isUpPressed, setIsUpPressed] = useState(false)
+
   let currentFrame = 0
   const canvas = useRef()
   let isDownPressed = false
@@ -38,21 +37,7 @@ export const Game = () => {
     drawBackground(ctx)
     drawPlayer(ctx)
     drawBarrier(ctx, 65)
-    // moveBarrier(enemyX)
-    // drawBarrier(ctx, 105)
 
-    //   moveBarrier(barrier)
-    //   moveBarrier(barrier2)
-    //   myGame.drawScore()
-    //   myGame.drawLife()
-    //   myGame.collision(player, barrier)
-    //   myGame.collision(player, barrier2)
-    //   // endgame
-    //   if (myGame.life < -3) {
-    //     clearInterval(myGame.play)
-    //     addUserScore()
-    //   }
-    //   // moveBg
     cameraX = cameraSpeed - canvas.current.width / 2
   }
   const player = new Image()
@@ -63,21 +48,10 @@ export const Game = () => {
 
   let jumpCount = 0
   let jumpHeight = 0
-  // const moveBarrier = b => {
-  //   b -= ENEMY_SPEED
-  //   if (b <= 0) {
-  //     b = Math.floor(Math.random() * 1800 + 1500)
-  //   }
-  //   // if (
-  //   //   enemyX + barrier.width + 200 >= barrier2.x &&
-  //   //   enemyX - 200 <= barrier2.x + barrier2.width
-  //   // ) {
-  //   //   barrier.x += 300
-  //   // }
-  // }
+
   let enemyFrame = 0
-  let enemyX = canvas.current.width + 20
-  let enemyY = canvas.current.height - 65
+  let enemyX = canvas.current?.width + 20
+  let enemyY = canvas.current?.height - 65
   const drawBarrier = ctx => {
     let frameWidth = ENEMY_IMG_WIDTH / ENEMY_COLUMN_COUNT
     let frameHeight = ENEMY_IMG_HEIGHT / ENEMY_ROWS_COUNT
@@ -111,7 +85,6 @@ export const Game = () => {
     let playerX = (canvas.current.width - PLAYER_WIDTH) / 6
     let playerY = canvas.current.height
     currentFrame++
-    // console.log('currentFrame', currentFrame)
     const maxFrame = COLUMNS_NUMBER * ROWS_NUMBER - 1
     if (currentFrame > maxFrame) {
       currentFrame = 0
@@ -121,7 +94,6 @@ export const Game = () => {
     const row = Math.floor(currentFrame / COLUMNS_NUMBER)
     // sit
     if (isDownPressed && !isUpPressed) {
-      console.log('sit')
       player.src = playerSitFrame
       playerY = canvas.current.height + 30 - frameHeight
     } else {

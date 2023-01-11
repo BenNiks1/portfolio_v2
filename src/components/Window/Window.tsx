@@ -57,7 +57,11 @@ export const Window: FC<WindowProps> = props => {
         onClick={onWindowClick}
       >
         <WindowHeader {...props} />
-        <main className={styles.window_content}>
+        <main
+          className={cn(styles.window_content, {
+            [styles.game]: windowData?.isGame,
+          })}
+        >
           {hasChildren ? (
             <DesktopIcon {...(windowData as DesktopData)} />
           ) : windowData?.isGame ? (

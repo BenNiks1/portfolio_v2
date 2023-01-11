@@ -104,5 +104,9 @@ $headerHeight: 25px;
     padding: 15px;
     height: calc(100% - $headerHeight);
     @include reverseShadow();
+
+    &.game {
+      padding: 5px;
+    }
   }
 }
