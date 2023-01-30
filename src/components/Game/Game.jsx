@@ -5,7 +5,13 @@ import bg from '../../assets/game/background.png'
 import playerFrame from '../../assets/game/hero/player.png'
 import playerSitFrame from '../../assets/game/hero/sit.png'
 import playerJumpFrame from '../../assets/game/hero/jump.png'
+import playerHit from '../../assets/game/hero/hit.png'
 import barrier from '../../assets/game/enemy/commonEnemy/enemy.png'
+import zeroHearts from '../../assets/game/0heartrs.png'
+import oneHeart from '../../assets/game/1heartrs.png'
+import twoHearts from '../../assets/game/2heartrs.png'
+import threeHearts from '../../assets/game/3heartrs.png'
+
 import {
   COLUMNS_NUMBER,
   ENEMY_COLUMN_COUNT,
@@ -19,71 +25,118 @@ import {
   ROWS_NUMBER,
 } from './constants'
 
+// Игра изначалоно написана на нативном js
+// опыта с canvas на react.js практически нет
+// TODO: требуется рефакторинг
 export const Game = () => {
-  const [start, setStar] = useState(false)
+  const [game, setGame] = useState(false)
+  const [isGameOver, setIsGameOver] = useState(false)
+  const [enemy, setEnemy] = useState()
+  const [player, setPlayer] = useState()
+  const [settings, setSettings] = useState()
   const [userName, setUserName] = useState('')
+  const [key, setKey] = useState()
+  const [userScore, setUserScore] = useState([])
 
-  let currentFrame = 0
   const canvas = useRef()
+  let animationFrameId
+  let currentFrame = 0
   let isDownPressed = false
   let isUpPressed = false
-  console.log('userName', userName)
+  let collisionHandler = false
+  let life = 3
+  let score = 0
 
-  let cameraSpeed = 0
-  let cameraX = 0
+  const playerImage = new Image()
+  const enemyImage = new Image()
+
+  playerImage.src = playerFrame
+  enemyImage.src = barrier
 
   const draw = ctx => {
     ctx.clearRect(0, 0, canvas.current.width, canvas.current.height)
     drawBackground(ctx)
     drawPlayer(ctx)
-    drawBarrier(ctx, 65)
+    drawEnemy(ctx)
+    drawLife(ctx)
+    drawScore(ctx)
+    collision()
 
-    cameraX = cameraSpeed - canvas.current.width / 2
+    settings.cameraX = settings.cameraSpeed - canvas.current.width / 2
+
+    if (life <= 0) {
+      addUserScore()
+      setGame(false)
+      setIsGameOver(true)
+      clearInterval(draw())
+    }
   }
-  const player = new Image()
-  const enemy = new Image()
 
-  player.src = playerFrame
-  enemy.src = barrier
+  const addUserScore = () => {
+    const sortByField = field => (a, b) => a[field] > b[field] ? -1 : 1
+    const result = JSON.parse(localStorage.getItem('result') || '[]')
+    result.sort(sortByField('score'))
+    const user = {
+      name: userName,
+      score,
+      key,
+    }
 
-  let jumpCount = 0
-  let jumpHeight = 0
+    setUserScore([user, ...result])
 
-  let enemyFrame = 0
-  let enemyX = canvas.current?.width + 20
-  let enemyY = canvas.current?.height - 65
-  const drawBarrier = ctx => {
-    let frameWidth = ENEMY_IMG_WIDTH / ENEMY_COLUMN_COUNT
-    let frameHeight = ENEMY_IMG_HEIGHT / ENEMY_ROWS_COUNT
-    enemyFrame++
-    enemyX -= ENEMY_SPEED
-    if (enemyX <= -60) {
-      enemyX = Math.floor(Math.random() * 1300 + 1000)
+    localStorage.setItem('result', JSON.stringify(userScore))
+  }
+
+  const collision = () => {
+    if (
+      enemy.x + 15 + enemy.frameWidth - 25 >= player.x + 95 &&
+      enemy.x + 15 + enemy.frameWidth - 25 <=
+        player.x + 95 + player.frameWidth - 195 &&
+      enemy.y + 55 >= player.y - player.jumpHeight + player.frameHeight - 80 &&
+      enemy.y + 55 - enemy.frameHeight - 15 <=
+        player.y - player.jumpHeight + player.frameHeight - 80
+    ) {
+      collisionHandler = true
+      playerImage.src = playerHit
+      life = life - 1 / 16
+
+      setTimeout(() => {
+        playerImage.src = playerFrame
+        life = Math.floor(life)
+      }, 200)
+    } else if (
+      enemy.x + 15 + enemy.frameWidth - 25 >= player.x + 95 &&
+      enemy.x + 15 <= player.x + 95
+    ) {
+      score++
+    }
+  }
+  const drawEnemy = ctx => {
+    enemy.frame++
+    enemy.x -= ENEMY_SPEED
+    if (enemy.x <= -60) {
+      enemy.x = Math.floor(Math.random() * 1300 + 1000)
     }
     let maxFrame = ENEMY_COLUMN_COUNT * ENEMY_ROWS_COUNT
-    if (enemyFrame > maxFrame) {
-      enemyFrame = 0
+    if (enemy.frame > maxFrame) {
+      enemy.frame = 0
     }
-    let column = enemyFrame % ENEMY_ROWS_COUNT
-    let row = Math.floor(enemyFrame / ENEMY_COLUMN_COUNT)
+    let column = enemy.frame % ENEMY_ROWS_COUNT
+    let row = Math.floor(enemy.frame / ENEMY_COLUMN_COUNT)
     ctx.drawImage(
-      enemy,
-      column * frameWidth,
-      row * frameHeight,
-      frameWidth,
-      frameHeight,
-      enemyX,
-      enemyY,
-      frameWidth,
-      frameHeight
+      enemyImage,
+      column * enemy.frameWidth,
+      row * enemy.frameHeight,
+      enemy.frameWidth,
+      enemy.frameHeight,
+      enemy.x,
+      enemy.y,
+      enemy.frameWidth,
+      enemy.frameHeight
     )
   }
 
   const drawPlayer = ctx => {
-    let frameWidth = 1500 / COLUMNS_NUMBER
-    let frameHeight = 784 / ROWS_NUMBER
-    let playerX = (canvas.current.width - PLAYER_WIDTH) / 6
-    let playerY = canvas.current.height
     currentFrame++
     const maxFrame = COLUMNS_NUMBER * ROWS_NUMBER - 1
     if (currentFrame > maxFrame) {
@@ -94,36 +147,36 @@ export const Game = () => {
     const row = Math.floor(currentFrame / COLUMNS_NUMBER)
     // sit
     if (isDownPressed && !isUpPressed) {
-      player.src = playerSitFrame
-      playerY = canvas.current.height + 30 - frameHeight
-    } else {
-      player.src = playerFrame
-      playerY = canvas.current.height - PLAYER_HEIGHT
+      playerImage.src = playerSitFrame
+      player.y = canvas.current.height + 20 - player.frameHeight
+    } else if (!collisionHandler && !isDownPressed) {
+      playerImage.src = playerFrame
+      player.y = canvas.current.height - PLAYER_HEIGHT
     }
     // jump
     if (isUpPressed) {
-      player.src = playerJumpFrame
-      jumpCount++
-      jumpHeight =
-        2 * JUMP_LENGTH * Math.sin((Math.PI * jumpCount) / JUMP_LENGTH)
+      playerImage.src = playerJumpFrame
+      player.jumpCount++
+      player.jumpHeight =
+        2 * JUMP_LENGTH * Math.sin((Math.PI * player.jumpCount) / JUMP_LENGTH)
     }
-    if (jumpCount > JUMP_LENGTH) {
-      player.src = playerFrame
-      jumpCount = 0
+    if (player.jumpCount > JUMP_LENGTH) {
+      playerImage.src = playerFrame
+      player.jumpCount = 0
       isUpPressed = false
-      jumpHeight = 0
+      player.jumpHeight = 0
     }
     // drawImage
     ctx.drawImage(
-      player,
-      column * frameWidth,
-      row * frameHeight,
-      frameWidth,
-      frameHeight,
-      playerX,
-      playerY - jumpHeight,
-      frameWidth,
-      frameHeight
+      playerImage,
+      column * player.frameWidth,
+      row * player.frameHeight,
+      player.frameWidth,
+      player.frameHeight,
+      player.x,
+      player.y - player.jumpHeight,
+      player.frameWidth,
+      player.frameHeight
     )
   }
   const drawBackground = ctx => {
@@ -132,15 +185,15 @@ export const Game = () => {
     const bgWidth = 982
 
     const bgX =
-      Math.floor(cameraX / background.width) * background.width -
-      (cameraX % background.width)
+      Math.floor(settings.cameraX / background.width) * background.width -
+      (settings.cameraX % background.width)
     const count = Math.ceil(canvas.current.width / bgWidth) + 2
 
-    cameraSpeed++
+    settings.cameraSpeed++
     for (let i = 0; i < count; i++) {
       ctx.drawImage(
         background,
-        bgX + i * bgWidth - cameraX,
+        bgX + i * bgWidth - settings.cameraX,
         0,
         bgWidth,
         canvas.current.height
@@ -150,7 +203,36 @@ export const Game = () => {
   const startGame = e => {
     e.preventDefault()
     setUserName(e.target[0].value)
-    setStar(true)
+    setGame(true)
+  }
+
+  const drawScore = ctx => {
+    ctx.font = '16px Arial'
+    ctx.fillStyle = '#fff'
+    ctx.fillText(`Score: ${score}`, 8, 20)
+  }
+
+  const drawLife = ctx => {
+    const lifeImage = new Image()
+
+    switch (life) {
+      case 3:
+        lifeImage.src = threeHearts
+        ctx.drawImage(lifeImage, 20, 40, 54, 16)
+        break
+      case 2:
+        lifeImage.src = twoHearts
+        ctx.drawImage(lifeImage, 20, 40, 54, 16)
+        break
+      case 1:
+        lifeImage.src = oneHeart
+        ctx.drawImage(lifeImage, 20, 40, 54, 16)
+        break
+      case 0:
+        lifeImage.src = zeroHearts
+        ctx.drawImage(lifeImage, 20, 40, 54, 16)
+        break
+    }
   }
 
   const keyDownHandler = e => {
@@ -174,20 +256,44 @@ export const Game = () => {
   useEffect(() => {
     const context = canvas.current.getContext('2d')
 
-    let animationFrameId
+    setKey(new Date())
+
+    setSettings({
+      cameraSpeed: 0,
+      cameraX: 0,
+    })
+
+    setPlayer({
+      frameWidth: 1500 / COLUMNS_NUMBER,
+      frameHeight: 784 / ROWS_NUMBER,
+      x: (canvas.current?.width - PLAYER_WIDTH) / 6,
+      y: canvas.current?.height,
+      jumpCount: 0,
+      jumpHeight: 0,
+    })
+
+    setEnemy({
+      frame: 0,
+      frameWidth: ENEMY_IMG_WIDTH / ENEMY_COLUMN_COUNT,
+      frameHeight: ENEMY_IMG_HEIGHT / ENEMY_ROWS_COUNT,
+      x: canvas.current?.width + 20,
+      y: canvas.current?.height - 65,
+    })
+
     //Our draw came here
     const render = () => {
-      if (start) {
+      if (game) {
         draw(context)
       }
       animationFrameId = window.requestAnimationFrame(render)
     }
+
     render()
 
     return () => {
       window.cancelAnimationFrame(animationFrameId)
     }
-  }, [canvas, start])
+  }, [canvas, game])
   return (
     <div className={styles.wrapper}>
       <canvas
@@ -199,7 +305,9 @@ export const Game = () => {
       />
       <form
         onSubmit={startGame}
-        className={cn(styles.canvas__form, { [styles.active]: !start })}
+        className={cn(styles.canvas__form, {
+          [styles.active]: !game && !isGameOver,
+        })}
       >
         <input
           type='text'
@@ -210,8 +318,16 @@ export const Game = () => {
         />
         <p className={styles.canvas__form_text}>Press 'Enter' to start</p>
       </form>
-      <div className={styles.canvas__score}>
-        <div className={styles.canvas__score_inner} />
+      <div
+        className={cn(styles.canvas__score, { [styles.active]: isGameOver })}
+      >
+        <div className={styles.canvas__score_inner}>
+          {userScore.map((user, index) => (
+            <p key={index}>
+              {index + 1}. {user.name} - {user.score}
+            </p>
+          ))}
+        </div>
       </div>
     </div>
   )

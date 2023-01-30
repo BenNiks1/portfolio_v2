@@ -2,6 +2,7 @@
   height: 600px;
   position: relative;
 }
+
 .canvas {
   &__form {
     display: none;
@@ -19,13 +20,38 @@
     &.active {
       display: flex;
     }
+
     &_input {
       &::placeholder {
         padding: 5px;
       }
     }
+
     &_text {
       color: #fff;
+    }
+  }
+  &__score {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: #000;
+    color: #fff;
+
+    &-inner {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    &.active {
+      display: flex;
     }
   }
 }

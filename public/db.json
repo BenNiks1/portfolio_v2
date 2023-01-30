@@ -50,8 +50,8 @@
     "label": "game.exe",
     "currentIcon": 6,
     "icon": "./assets/game.png",
-    "x": 300,
-    "y": 300,
+    "x": 100,
+    "y": 100,
     "hasChildren": false,
     "windowData": {
       "isGame": true
