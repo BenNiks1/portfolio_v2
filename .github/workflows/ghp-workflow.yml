@@ -1,0 +1,25 @@
+name: Portfolio CI
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-test-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set-up Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '18.13.0'
+      - run: npm install
+      - run: npm run build
+      - name: Deploy
+        uses: BenNiks1/portfolio_v2@v1
+        with:
+          target_branch: gh-pages
+          build_dir: build
+        env:
+          GITHUB_TOKEN: ${{ secrets.REPO_SECRET }}
