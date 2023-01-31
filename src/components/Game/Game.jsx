@@ -36,7 +36,8 @@ export const Game = () => {
   const [settings, setSettings] = useState()
   const [userName, setUserName] = useState('')
   const [key, setKey] = useState()
-  const [userScore, setUserScore] = useState([])
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
+  const [userScore, setUserScore] = useState()
 
   const canvas = useRef()
   let animationFrameId
@@ -65,26 +66,27 @@ export const Game = () => {
     settings.cameraX = settings.cameraSpeed - canvas.current.width / 2
 
     if (life <= 0) {
-      addUserScore()
+      // addUserScore()
       setGame(false)
       setIsGameOver(true)
       clearInterval(draw())
     }
   }
 
+  // TODO: Добавить сохранение счета
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
   const addUserScore = () => {
-    const sortByField = field => (a, b) => a[field] > b[field] ? -1 : 1
     const result = JSON.parse(localStorage.getItem('result') || '[]')
+
+    const sortByField = field => (a, b) => a[field] > b[field] ? -1 : 1
     result.sort(sortByField('score'))
     const user = {
       name: userName,
       score,
       key,
     }
-
     setUserScore([user, ...result])
-
-    localStorage.setItem('result', JSON.stringify(userScore))
+    localStorage.setItem('result', JSON.stringify([user, ...result]))
   }
 
   const collision = () => {
@@ -303,6 +305,7 @@ export const Game = () => {
         width='982'
         height='600'
       />
+
       <form
         onSubmit={startGame}
         className={cn(styles.canvas__form, {
@@ -317,16 +320,33 @@ export const Game = () => {
           autoFocus
         />
         <p className={styles.canvas__form_text}>Press 'Enter' to start</p>
+        <p className={styles.canvas__form_text}>v0.7.0 beta</p>
       </form>
       <div
         className={cn(styles.canvas__score, { [styles.active]: isGameOver })}
       >
         <div className={styles.canvas__score_inner}>
-          {userScore.map((user, index) => (
-            <p key={index}>
-              {index + 1}. {user.name} - {user.score}
-            </p>
-          ))}
+          <p>Game Over</p>
+          <br />
+          <p className={styles.canvas__score_description}>
+            <a
+              className={styles.canvas__score_link}
+              href='https://benniks1.github.io/my_game/'
+              target='_blank'
+              rel='noopener noreferrer'
+            >
+              Original game
+            </a>
+            <span> / </span>
+            <a
+              className={styles.canvas__score_link}
+              href='https://github.com/BenNiks1/my_game'
+              target='_blank'
+              rel='noopener noreferrer'
+            >
+              Game GitHub
+            </a>
+          </p>
         </div>
       </div>
     </div>
