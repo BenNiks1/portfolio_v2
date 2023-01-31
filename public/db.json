@@ -8,7 +8,7 @@
     "y": 300,
     "windowData": {
       "title": "Window inner title",
-      "text": "Window inner text"
+      "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos iste officiis repellat corporis maxime nihil minima magni provident ducimus dolore sequi amet, porro repellendus fuga magnam hic, deserunt, ipsa officia dolorum unde. Enim, id odio! Assumenda ea laudantium vitae sequi."
     }
   },
   {
@@ -26,7 +26,7 @@
   {
     "label": "GitHub",
     "currentIcon": 3,
-    "icon": "./assets/gitHubWhite.png",
+    "icon": "./assets/globe.png",
     "hasChildren": false,
     "link": "https://github.com/BenNiks1/portfolio_v2"
   },
@@ -44,6 +44,17 @@
       "hasChildren": false,
       "link": "https://benniks1.github.io/sychev/",
       "windowData": {}
+    }
+  },
+  {
+    "label": "game.exe",
+    "currentIcon": 6,
+    "icon": "./assets/game.png",
+    "x": 100,
+    "y": 100,
+    "hasChildren": false,
+    "windowData": {
+      "isGame": true
     }
   }
 ]

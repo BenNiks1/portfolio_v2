@@ -6,6 +6,7 @@ import cn from 'classnames'
 import { DesktopData, Position, WindowData } from '../../model'
 import { WindowHeader } from './components'
 import { DesktopIcon } from '../DesktopIcon'
+import { Game } from '../Game'
 
 interface WindowProps {
   currentIcon: number
@@ -16,13 +17,9 @@ interface WindowProps {
   y?: number
 }
 
-export const Window: FC<WindowProps> = ({
-  currentIcon,
-  windowData,
-  label,
-  hasChildren,
-  ...props
-}) => {
+export const Window: FC<WindowProps> = props => {
+  const { currentIcon, windowData, hasChildren } = props
+
   const [initialPosition, setInitialPosition] = useState<Position | null>(null)
   const { setActiveStartIcon } = useAction()
   const { activeStartIcon, minimizeWindow, expandWindow } = useTypedSelector(
@@ -59,14 +56,16 @@ export const Window: FC<WindowProps> = ({
         }}
         onClick={onWindowClick}
       >
-        <WindowHeader
-          label={label}
-          currentWindow={currentIcon}
-          windowData={windowData}
-        />
-        <main className={styles.window_content}>
+        <WindowHeader {...props} />
+        <main
+          className={cn(styles.window_content, {
+            [styles.game]: windowData?.isGame,
+          })}
+        >
           {hasChildren ? (
             <DesktopIcon {...(windowData as DesktopData)} />
+          ) : windowData?.isGame ? (
+            <Game />
           ) : (
             <>
               <h2>{windowData?.title}</h2>
