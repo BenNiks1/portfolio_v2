@@ -13,7 +13,7 @@
 3. Игра - Доработка и рефакторинг игры.
    Исходных код игры - https://github.com/BenNiks1/my_game
    Игра на Github pages - https://benniks1.github.io/my_game/
-4. Анимация разворачивания и с ворачивания окон
+4. Анимация разворачивания и сворачивания окон
 
 5. Режим ожидания системы
 
@@ -33,6 +33,6 @@ In the plans:
    Game source code - https://github.com/BenNiks1/my_game
    Game on Github pages - https://benniks1.github.io/my_game/
 
-4. Animation of opening and closing windows
+4. Animation of maximizing and minimizing windows
 
 5. System standby
