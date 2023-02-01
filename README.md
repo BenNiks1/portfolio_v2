@@ -1,46 +1,38 @@
-# Getting Started with Create React App
+# Портфолио v2
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Особая благодарность [Don Chia](https://www.donchia.tech/) за вдохновение
 
-## Available Scripts
+## Проект все еще в разработке
 
-In the project directory, you can run:
+В планах:
 
-### `yarn start`
+1. Мобильная версия
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+2. Настройки - смена языка, темная тема, сброс до дефолтных настроек
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+3. Игра - Доработка и рефакторинг игры.
+   Исходных код игры - https://github.com/BenNiks1/my_game
+   Игра на Github pages - https://benniks1.github.io/my_game/
+4. Анимация разворачивания и с ворачивания окон
 
-### `yarn test`
+5. Режим ожидания системы
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# Portfolio v2
 
-### `yarn build`
+Special thanks to [Don Chia](https://www.donchia.tech/) for inspiration
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## The project is still in development
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+In the plans:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Mobile version
 
-### `yarn eject`
+2. Settings - change language, dark theme, reset to default settings
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+3. Game - Refinement and refactoring of the game.
+   Game source code - https://github.com/BenNiks1/my_game
+   Game on Github pages - https://benniks1.github.io/my_game/
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+4. Animation of opening and closing windows
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+5. System standby
