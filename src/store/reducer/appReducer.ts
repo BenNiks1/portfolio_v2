@@ -13,10 +13,10 @@ interface AppState {
 
 const initialState: AppState = {
   activeIcon: 0,
-  activeStartIcon: 0,
+  activeStartIcon: 1,
   minimizeWindow: [],
   expandWindow: [],
-  activeWindow: [],
+  activeWindow: [{ id: 1, label: 'My Computer' }],
   powerStatus: localStorage.getItem('powerStatus') || POWER_STATUS_START,
 }
 

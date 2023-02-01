@@ -4,12 +4,23 @@ $headerHeight: 25px;
 
 .window {
   max-width: 700px;
+  height: 500px;
   width: 100%;
   background-color: var(--primary-grey);
   @include primaryShadow();
   padding: 4px;
   position: absolute;
   z-index: 10;
+
+  &.game {
+    max-width: 1000px;
+    height: unset;
+
+    main {
+      padding: 5px;
+      overflow: initial;
+    }
+  }
 
   &.expand {
     width: 100%;
@@ -103,10 +114,7 @@ $headerHeight: 25px;
     margin: 4px 0;
     padding: 15px;
     height: calc(100% - $headerHeight);
+    overflow-y: scroll;
     @include reverseShadow();
-
-    &.game {
-      padding: 5px;
-    }
   }
 }
