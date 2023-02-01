@@ -4,11 +4,11 @@
     "currentIcon": 1,
     "icon": "./assets/computer.png",
     "hasChildren": false,
-    "x": 300,
-    "y": 300,
+    "x": 200,
+    "y": 100,
     "windowData": {
-      "title": "Window inner title",
-      "text": "Window inner text"
+      "title": "",
+      "text": " <div style='display:flex; justify-content: space-between'> <div> <h2>Богдан Сычев</h2> <p>Middle Frontend developer</p> <br /> <h3>Местоположение</h3> <p>Проживание: Грузия, Тбилиси</p> <br /> <h3>Контактная информация</h3> <address> <div> <a href='tel:+79081771334'>Моб.: +79081771334</a> </div> <div> <a href='tel:+995598001908'>Моб.: +995598001908</a> </div> <div> <a href='mailto:benxmr@gmail.com'>Gmail</a> &nbsp; &nbsp; &nbsp; <a href='https://t.me/FatHippy' target='_blank' rel='noopener noreferrer' > Telegram </a> </div> </address> </div> <picture> <source srcSet='./assets/photo.jpg' media='(max-width: 768px)' /> <img style='max-width: 200px; width: 100%' src='./assets/photo.jpg' alt='Фото' /> </picture> </div> <div> <br /> <h3>О себе</h3> <p> Гражданство: Украина <p> Зарегистрирован в РФ как самозанятый, готов рассмотреть вариант с открытием ИП в Грузии или получение ЗП в криптовалюте. </p> <p> Умение самостоятельно работать над задачами, искать и находить информацию. </p> <p> Желание профессионально развиваться, обучаться и работать в команде. </p> </p> <p> Предпочтительный способ связи - <a href='http://' target='_blank' rel='noopener noreferrer'> telegram </a> </p> <p> Более подробно ознакомиться с резюмеможно на <a href='https://hh.ru/resume/75aeb575ff066a4c020039ed1f7233686e5738' target='_blank' rel='noopener noreferrer' >HH</a> или <a href='https://career.habr.com/benniks' target='_blank' rel='noopener noreferrer' >Habr Career</a> . </p> <br /> <h4>Стек</h4> <ul style='display: flex; flex-wrap: wrap; gap: 20px'> <li>JavaScript. ES6+</li> <li>REST API</li> <li>TypeScript</li> <li>React.js v17+</li> <li>Redux </li> <li>Next.js / Gatsby.js</li> <li>Jest / React Testing Library / Vitest</li> <li>Vue.js v2/v3</li> <li>Nuxt.js v2/v3</li> <li>Storybook</li> </ul> </div>"
     }
   },
   {
@@ -16,8 +16,8 @@
     "currentIcon": 2,
     "icon": "./assets/settings.png",
     "hasChildren": false,
-    "x": 320,
-    "y": 320,
+    "x": 220,
+    "y": 120,
     "windowData": {
       "title": "Settings",
       "text": "Settings in progress..."
@@ -26,7 +26,7 @@
   {
     "label": "GitHub",
     "currentIcon": 3,
-    "icon": "./assets/gitHubWhite.png",
+    "icon": "./assets/globe.png",
     "hasChildren": false,
     "link": "https://github.com/BenNiks1/portfolio_v2"
   },
@@ -35,8 +35,8 @@
     "currentIcon": 4,
     "icon": "./assets/trash.png",
     "hasChildren": true,
-    "x": 340,
-    "y": 340,
+    "x": 240,
+    "y": 140,
     "windowData": {
       "label": "old portfolio",
       "currentIcon": 5,
@@ -44,6 +44,17 @@
       "hasChildren": false,
       "link": "https://benniks1.github.io/sychev/",
       "windowData": {}
+    }
+  },
+  {
+    "label": "game.exe",
+    "currentIcon": 6,
+    "icon": "./assets/game.png",
+    "x": 100,
+    "y": 100,
+    "hasChildren": false,
+    "windowData": {
+      "isGame": true
     }
   }
 ]
