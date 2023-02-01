@@ -50,6 +50,7 @@ export const Window: FC<WindowProps> = props => {
         className={cn(styles.window, {
           [styles.active]: currentIcon === activeStartIcon,
           [styles.expand]: expandWindow.includes(currentIcon),
+          [styles.game]: windowData?.isGame,
         })}
         style={{
           display: minimizeWindow.includes(currentIcon) ? 'none' : 'block',
@@ -57,11 +58,7 @@ export const Window: FC<WindowProps> = props => {
         onClick={onWindowClick}
       >
         <WindowHeader {...props} />
-        <main
-          className={cn(styles.window_content, {
-            [styles.game]: windowData?.isGame,
-          })}
-        >
+        <main className={styles.window_content}>
           {hasChildren ? (
             <DesktopIcon {...(windowData as DesktopData)} />
           ) : windowData?.isGame ? (
@@ -69,7 +66,8 @@ export const Window: FC<WindowProps> = props => {
           ) : (
             <>
               <h2>{windowData?.title}</h2>
-              <p>{windowData?.text}</p>
+              {/* @ts-expect-error */}
+              <div dangerouslySetInnerHTML={{ __html: windowData?.text }} />
             </>
           )}
         </main>
