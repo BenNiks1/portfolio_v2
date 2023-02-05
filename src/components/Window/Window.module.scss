@@ -12,6 +12,17 @@ $headerHeight: 25px;
   position: absolute;
   z-index: 10;
 
+  @include media-lt(sm) {
+    max-width: 300px;
+    height: 400px;
+
+    & :global {
+      picture {
+        display: none;
+      }
+    }
+  }
+
   &.game {
     max-width: 1000px;
     height: unset;

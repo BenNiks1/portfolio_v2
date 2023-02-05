@@ -1,4 +1,4 @@
-import { FC, MouseEvent } from 'react'
+import { FC, MouseEvent, TouchEvent } from 'react'
 import { useAction, useTypedSelector } from '../../../../hooks'
 import styles from '../../Window.module.scss'
 import { ReactComponent as CloseIcon } from '../../../../assets/closeIcon.svg'
@@ -28,7 +28,9 @@ export const WindowHeader: FC<WindowHeaderProps> = ({
     setActiveWindow({ id: currentIcon, label: windowData?.title as string })
     expandWindow.includes(currentIcon) && setExpandWindow(currentIcon)
   }
-  const onMinimize = (e: MouseEvent<HTMLElement>) => {
+  const onMinimize = (
+    e: MouseEvent<HTMLButtonElement> | TouchEvent<HTMLButtonElement>
+  ) => {
     e.stopPropagation()
     setMinimizeWindow(currentIcon)
     setActiveIcon(0)
@@ -39,7 +41,11 @@ export const WindowHeader: FC<WindowHeaderProps> = ({
     <header className={cn(styles.window_header, 'window__header')}>
       <p className={styles.window_header__title}>{label}</p>
       <div className={styles.window_header__buttons}>
-        <button className={styles.window_header__button} onClick={onMinimize}>
+        <button
+          className={styles.window_header__button}
+          onMouseDown={onMinimize}
+          onTouchStart={onMinimize}
+        >
           <span className={styles.minimize_icon} />
         </button>
         <button
@@ -47,12 +53,17 @@ export const WindowHeader: FC<WindowHeaderProps> = ({
           className={cn(styles.window_header__button, {
             [styles.window_header__button_disabled]: windowData?.isGame,
           })}
-          onClick={() => setExpandWindow(currentIcon)}
+          onMouseDown={() => setExpandWindow(currentIcon)}
+          onTouchStart={() => setExpandWindow(currentIcon)}
         >
           <span className={styles.expand_icon} />
         </button>
 
-        <button className={styles.window_header__button} onClick={onClose}>
+        <button
+          className={styles.window_header__button}
+          onMouseDown={onClose}
+          onTouchStart={onClose}
+        >
           <CloseIcon
             viewBox='0 0 460.775 460.775'
             className={styles.close_icon}

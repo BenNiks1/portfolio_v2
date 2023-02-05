@@ -1,7 +1,6 @@
 {
   "name": "portfolio_v2",
   "version": "0.1.0",
-  "homepage": "https://benniks1.github.io/portfolio_v2",
   "private": true,
   "scripts": {
     "start": "react-scripts start",
