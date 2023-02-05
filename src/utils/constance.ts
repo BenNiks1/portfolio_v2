@@ -8,3 +8,8 @@ export const POWER_STATUS_OFF = 'off'
 
 // icons
 export const COMPUTER_ICON = 1
+
+// device
+export const MOBILE_SIZE = 768
+export const TABLET_SIZE = 900
+export const DESKTOP_SIZE = 1440

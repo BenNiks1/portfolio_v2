@@ -4,7 +4,7 @@ export interface DesktopData {
   currentIcon: number
   icon: string
   hasChildren: boolean
-  window?: WindowData
+  windowData?: WindowData
   link?: string
   x: number
   y: number

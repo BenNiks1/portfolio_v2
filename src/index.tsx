@@ -1,4 +1,3 @@
-import { StrictMode } from 'react'
 import ReactDOM from 'react-dom'
 import reportWebVitals from './reportWebVitals'
 import { App } from './App'
@@ -9,9 +8,7 @@ import './assets/styles/index.scss'
 
 ReactDOM.render(
   <Provider store={store}>
-    <StrictMode>
-      <App />
-    </StrictMode>
+    <App />
   </Provider>,
   document.getElementById('root')
 )
