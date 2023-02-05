@@ -6,8 +6,15 @@ export const Shutdown = () => (
   <main className={styles.shutdown}>
     <div className={styles.shutdown__wrapper}>
       <div className={styles.shutdown__logo}>
-        <img src={logo} alt='logo' className={styles.logo} />
-        <img src={title} alt='title' className={styles.title} />
+        <picture>
+          <source srcSet={logo} media='(max-width: 768px)' />
+          <img className={styles.logo} src={logo} alt='logo' />
+        </picture>
+
+        <picture>
+          <source srcSet={title} media='(max-width: 768px)' />
+          <img className={styles.title} src={title} alt='logo' />
+        </picture>
       </div>
       <div className={styles.shutdown__loader} />
     </div>
