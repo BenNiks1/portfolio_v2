@@ -4,7 +4,7 @@
     "currentIcon": 1,
     "icon": "./assets/computer.png",
     "hasChildren": false,
-    "x": 200,
+    "x": 40,
     "y": 100,
     "windowData": {
       "title": "",
@@ -16,7 +16,7 @@
     "currentIcon": 2,
     "icon": "./assets/settings.png",
     "hasChildren": false,
-    "x": 220,
+    "x": 45,
     "y": 120,
     "windowData": {
       "title": "Settings",
@@ -35,7 +35,7 @@
     "currentIcon": 4,
     "icon": "./assets/trash.png",
     "hasChildren": true,
-    "x": 240,
+    "x": 50,
     "y": 140,
     "windowData": {
       "label": "old portfolio",
