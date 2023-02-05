@@ -1,6 +1,9 @@
+@import '../../assets/styles/mixins.scss';
+
 .windows {
   display: flex;
   flex-direction: column;
+  // justify-content: space-between;
 
   &__desktop {
     display: grid;
@@ -12,6 +15,9 @@
     background-color: var(--wallpaper-color);
   }
   &__start {
+    position: fixed;
+    bottom: 0px;
+    z-index: 25;
     width: 100%;
     height: var(--start-height);
   }
