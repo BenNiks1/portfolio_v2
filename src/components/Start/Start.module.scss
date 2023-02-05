@@ -51,6 +51,7 @@
   position: absolute;
   bottom: 34px;
   background: var(--primary-grey);
+  z-index: 25;
   @include primaryShadow();
   &__logo {
     display: flex;

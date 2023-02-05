@@ -7,3 +7,35 @@
   box-shadow: -6px -6px 3px -5px rgba(0, 0, 0, 1) inset,
     7px 7px 0px -5px rgba(255, 255, 255, 0.6) inset;
 }
+
+$breakpoints: (
+  sm: 768px,
+  md: 1200px,
+  wd: 1366px,
+  lg: 1440px,
+) !default;
+
+@function get-breakpoint($key) {
+  @if map-has-key($breakpoints, $key) {
+    @return map-get($breakpoints, $key);
+  }
+
+  @return $key;
+}
+
+@mixin media-lt($from) {
+  $max-width: get-breakpoint($from) - 1px;
+
+  @media (max-width: $max-width) {
+    @content;
+  }
+}
+
+@mixin media-between($from, $to) {
+  $min-width: get-breakpoint($from);
+  $max-width: get-breakpoint($to) - 1;
+
+  @media (min-width: $min-width) and (max-width: $max-width) {
+    @content;
+  }
+}

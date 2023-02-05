@@ -22,6 +22,15 @@ export const DesktopIcon: FC<DesktopIconProps> = props => {
 
   const { setActiveWindow, setActiveIcon, setActiveStartIcon } = useAction()
   const { activeWindow, activeIcon } = useTypedSelector(state => state.app)
+
+  const onOpenWindow = () => {
+    setActiveIcon(0)
+    setActiveStartIcon(currentIcon)
+    if (link?.length) window.open(link)
+    else if (!activeWindow.some((el: StartIcon) => el.id === currentIcon))
+      setActiveWindow({ id: currentIcon, label: props.label })
+  }
+
   const handleIconClick = (e: MouseEvent<HTMLElement>) => {
     e.stopPropagation()
     switch (e.detail) {
@@ -29,11 +38,7 @@ export const DesktopIcon: FC<DesktopIconProps> = props => {
         setActiveIcon(currentIcon)
         break
       case 2:
-        setActiveIcon(0)
-        setActiveStartIcon(currentIcon)
-        if (link?.length) window.open(link)
-        else if (!activeWindow.some((el: StartIcon) => el.id === currentIcon))
-          setActiveWindow({ id: currentIcon, label: props.label })
+        onOpenWindow()
         break
       default:
         return
@@ -46,7 +51,8 @@ export const DesktopIcon: FC<DesktopIconProps> = props => {
           [styles.clicked]: currentIcon === activeIcon,
           [styles.children_icon]: link && props.windowData,
         })}
-        onClick={handleIconClick}
+        onMouseDown={handleIconClick}
+        onTouchStart={onOpenWindow}
       >
         <img className={styles.icon} src={icon} alt='desctopIcon' />
         <p className={styles.label}>{props.label}</p>

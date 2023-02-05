@@ -1,4 +1,4 @@
-import { FC, MouseEvent, useEffect, useState } from 'react'
+import { FC, MouseEvent, TouchEvent, useEffect, useState } from 'react'
 import { useAction, useTypedSelector } from '../../hooks'
 import styles from './Window.module.scss'
 import Draggable from 'react-draggable'
@@ -25,7 +25,9 @@ export const Window: FC<WindowProps> = props => {
   const { activeStartIcon, minimizeWindow, expandWindow } = useTypedSelector(
     state => state.app
   )
-  const onWindowClick = (e: MouseEvent<HTMLElement>) => {
+  const onWindowClick = (
+    e: MouseEvent<HTMLElement> | TouchEvent<HTMLElement>
+  ) => {
     e.stopPropagation()
     setActiveStartIcon(currentIcon)
   }
@@ -55,7 +57,8 @@ export const Window: FC<WindowProps> = props => {
         style={{
           display: minimizeWindow.includes(currentIcon) ? 'none' : 'block',
         }}
-        onClick={onWindowClick}
+        onMouseDown={onWindowClick}
+        onTouchStart={onWindowClick}
       >
         <WindowHeader {...props} />
         <main className={styles.window_content}>

@@ -1,13 +1,10 @@
 .shutdown {
-  background-color: var(--wallpaper-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 100vh;
-  position: relative;
-  &__wrapper {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
+  background-color: var(--wallpaper-color);
+
   &__logo {
     display: flex;
     grid-gap: 20px;
