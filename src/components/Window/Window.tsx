@@ -57,7 +57,7 @@ export const Window: FC<WindowProps> = props => {
         style={{
           display: minimizeWindow.includes(currentIcon) ? 'none' : 'block',
         }}
-        onMouseDown={onWindowClick}
+        onClick={onWindowClick}
         onTouchStart={onWindowClick}
       >
         <WindowHeader {...props} />
