@@ -51,7 +51,7 @@ export const DesktopIcon: FC<DesktopIconProps> = props => {
           [styles.clicked]: currentIcon === activeIcon,
           [styles.children_icon]: link && props.windowData,
         })}
-        onMouseDown={handleIconClick}
+        onClick={handleIconClick}
         onTouchStart={onOpenWindow}
       >
         <img className={styles.icon} src={icon} alt='desctopIcon' />

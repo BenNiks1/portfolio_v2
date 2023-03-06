@@ -43,7 +43,7 @@ export const WindowHeader: FC<WindowHeaderProps> = ({
       <div className={styles.window_header__buttons}>
         <button
           className={styles.window_header__button}
-          onMouseDown={onMinimize}
+          onClick={onMinimize}
           onTouchStart={onMinimize}
         >
           <span className={styles.minimize_icon} />
@@ -53,7 +53,7 @@ export const WindowHeader: FC<WindowHeaderProps> = ({
           className={cn(styles.window_header__button, {
             [styles.window_header__button_disabled]: windowData?.isGame,
           })}
-          onMouseDown={() => setExpandWindow(currentIcon)}
+          onClick={() => setExpandWindow(currentIcon)}
           onTouchStart={() => setExpandWindow(currentIcon)}
         >
           <span className={styles.expand_icon} />
@@ -61,7 +61,7 @@ export const WindowHeader: FC<WindowHeaderProps> = ({
 
         <button
           className={styles.window_header__button}
-          onMouseDown={onClose}
+          onClick={onClose}
           onTouchStart={onClose}
         >
           <CloseIcon
