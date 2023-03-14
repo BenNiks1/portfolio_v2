@@ -1,29 +1,29 @@
 {
   "files": {
-    "main.css": "/portfolio_v2/static/css/main.f1d0ecf2.css",
-    "main.js": "/portfolio_v2/static/js/main.52f892e5.js",
-    "static/js/787.d9a20797.chunk.js": "/portfolio_v2/static/js/787.d9a20797.chunk.js",
-    "static/media/background.png": "/portfolio_v2/static/media/background.d1052c96aff2e9271931.png",
-    "static/media/shutdownLogo.png": "/portfolio_v2/static/media/shutdownLogo.fe567059fa6cceec8197.png",
-    "static/media/shutdownTitle.png": "/portfolio_v2/static/media/shutdownTitle.3878d80c6e5a89b30b6e.png",
-    "static/media/MicrosoftSansSerif.ttf": "/portfolio_v2/static/media/MicrosoftSansSerif.a8e45f570cbd2658b2be.ttf",
-    "static/media/MicrosoftSansSerif.svg": "/portfolio_v2/static/media/MicrosoftSansSerif.c848b1d3b6b4bb434d18.svg",
-    "static/media/jump.png": "/portfolio_v2/static/media/jump.5904bcb5fff6ac5497f2.png",
-    "static/media/sit.png": "/portfolio_v2/static/media/sit.3bd96ee1a2c8a7dd29e1.png",
-    "static/media/player.png": "/portfolio_v2/static/media/player.563e319e1be20cc5f903.png",
-    "static/media/hit.png": "/portfolio_v2/static/media/hit.735e2847576948989bea.png",
-    "static/media/MicrosoftSansSerif.woff": "/portfolio_v2/static/media/MicrosoftSansSerif.b1e72235c2288b19c37e.woff",
-    "static/media/MicrosoftSansSerif.eot": "/portfolio_v2/static/media/MicrosoftSansSerif.52d9d1715da2c06d5c5c.eot",
-    "static/media/MicrosoftSansSerif.woff2": "/portfolio_v2/static/media/MicrosoftSansSerif.41213e4c5cef19df9016.woff2",
-    "static/media/power.svg": "/portfolio_v2/static/media/power.18f2a7f463decd0474e263768d9ec7d7.svg",
-    "static/media/closeIcon.svg": "/portfolio_v2/static/media/closeIcon.735f51e7772e75b1f2399cde0da95a5e.svg",
-    "index.html": "/portfolio_v2/index.html",
-    "main.f1d0ecf2.css.map": "/portfolio_v2/static/css/main.f1d0ecf2.css.map",
-    "main.52f892e5.js.map": "/portfolio_v2/static/js/main.52f892e5.js.map",
-    "787.d9a20797.chunk.js.map": "/portfolio_v2/static/js/787.d9a20797.chunk.js.map"
+    "main.css": "/static/css/main.b1ccf160.css",
+    "main.js": "/static/js/main.792d33fd.js",
+    "static/js/787.d9a20797.chunk.js": "/static/js/787.d9a20797.chunk.js",
+    "static/media/background.png": "/static/media/background.d1052c96aff2e9271931.png",
+    "static/media/shutdownLogo.png": "/static/media/shutdownLogo.fe567059fa6cceec8197.png",
+    "static/media/shutdownTitle.png": "/static/media/shutdownTitle.3878d80c6e5a89b30b6e.png",
+    "static/media/MicrosoftSansSerif.ttf": "/static/media/MicrosoftSansSerif.a8e45f570cbd2658b2be.ttf",
+    "static/media/MicrosoftSansSerif.svg": "/static/media/MicrosoftSansSerif.c848b1d3b6b4bb434d18.svg",
+    "static/media/jump.png": "/static/media/jump.5904bcb5fff6ac5497f2.png",
+    "static/media/sit.png": "/static/media/sit.3bd96ee1a2c8a7dd29e1.png",
+    "static/media/player.png": "/static/media/player.563e319e1be20cc5f903.png",
+    "static/media/hit.png": "/static/media/hit.735e2847576948989bea.png",
+    "static/media/MicrosoftSansSerif.woff": "/static/media/MicrosoftSansSerif.b1e72235c2288b19c37e.woff",
+    "static/media/MicrosoftSansSerif.eot": "/static/media/MicrosoftSansSerif.52d9d1715da2c06d5c5c.eot",
+    "static/media/MicrosoftSansSerif.woff2": "/static/media/MicrosoftSansSerif.41213e4c5cef19df9016.woff2",
+    "static/media/power.svg": "/static/media/power.18f2a7f463decd0474e263768d9ec7d7.svg",
+    "static/media/closeIcon.svg": "/static/media/closeIcon.735f51e7772e75b1f2399cde0da95a5e.svg",
+    "index.html": "/index.html",
+    "main.b1ccf160.css.map": "/static/css/main.b1ccf160.css.map",
+    "main.792d33fd.js.map": "/static/js/main.792d33fd.js.map",
+    "787.d9a20797.chunk.js.map": "/static/js/787.d9a20797.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f1d0ecf2.css",
-    "static/js/main.52f892e5.js"
+    "static/css/main.b1ccf160.css",
+    "static/js/main.792d33fd.js"
   ]
 }
