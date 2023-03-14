@@ -59,14 +59,14 @@
   },
   {
     "label": "CV",
-    "currentIcon": 5,
+    "currentIcon": 7,
     "icon": "./assets/note.png",
     "hasChildren": false,
     "link": "CV.pdf"
   },
   {
     "label": "Cover letter",
-    "currentIcon": 5,
+    "currentIcon": 8,
     "icon": "./assets/note.png",
     "hasChildren": false,
     "link": "cover_letter.pdf"
