@@ -8,7 +8,7 @@
     "y": 100,
     "windowData": {
       "title": "",
-      "text": "<div style='display:flex; justify-content: space-between'> <div> <h2>Богдан Сычев</h2> <p>Middle Frontend developer</p> <br /> <h3>Местоположение</h3> <p>Проживание: Грузия, Тбилиси</p> <br /> <h3>Контактная информация</h3> <address> <div> <a href='tel:+79081771334'>Моб.: +79081771334</a> </div> <div> <a href='tel:+995598001908'>Моб.: +995598001908</a> </div> <div> <a href='mailto:benxmr@gmail.com'>Gmail</a> &nbsp; &nbsp; &nbsp; <a href='https://t.me/FatHippy' target='_blank' rel='noopener noreferrer' > Telegram </a> </div> </address> </div> <picture> <source srcSet='./assets/photo.jpg' media='(max-width: 768px)' /> <img style='max-width: 200px; width: 100%' src='./assets/photo.jpg' alt='Фото' /> </picture> </div> <div> <br /> <h4>Стек</h4> <ul style='display: flex; flex-wrap: wrap; gap: 20px'> <li>JavaScript. ES6+</li> <li>REST API</li> <li>TypeScript</li> <li>React.js v17+</li> <li>Redux </li> <li>Next.js / Gatsby.js</li> <li>Vue.js v2/v3</li> <li>Nuxt.js v2/v3</li> <li>Storybook</li> </ul> <br/> <h3>О себе</h3><p>Работал в аутсорс и продуктовой компаниях React/Vue разработчиком. Опыт коммерческой разработки 2 года. Есть опыт бэкенд-разработки в качестве фронтенд-разработчика: обсуждение моделей данных, требований к API, участие в оптимизации скорости (не принимал непосредственного участия в разработке бэкенда). Принимал участие в проектах как единственный разработчик, самостоятельно принимал решения касательно фронтенд разработки. Есть опыт старшего разработчика на проектах и последующих ретроспективах. Помимо опыта коммерческой разработки имею опыт обновления учебного плана компании, обучения стажеров, менторства на проектах, code review.</p><p> Гражданство: Украина <p> Зарегистрирован в РФ как самозанятый, готов рассмотреть вариант с открытием ИП в Грузии или получение ЗП в криптовалюте. </p> <p> Умение самостоятельно работать над задачами, искать и находить информацию. </p> <p> Желание профессионально развиваться, обучаться и работать в команде. </p> </p> <p> Предпочтительный способ связи - <a href='http: //' target='_blank' rel='noopener noreferrer'> telegram </a> </p> <p> Более подробно ознакомиться с резюме можно на <a href='https://hh.ru/resume/75aeb575ff066a4c020039ed1f7233686e5738' target='_blank' rel='noopener noreferrer' >HH</a> или <a href='https://career.habr.com/benniks' target='_blank' rel='noopener noreferrer' >Habr Career</a> . </p></div>"
+      "text": " <div style='display: flex; justify-content: space-between'> <div> <h2>Богдан Сычев</h2> <p>Middle Frontend developer</p><br/> <h3>Местоположение</h3> <p>Проживание: Грузия, Тбилиси</p><br/> <h3>Контактная информация</h3> <address> <div></div><div><a href='tel:+995598001908'>Моб.: +995598001908</a></div><div> <a href='mailto:benxmr@gmail.com'>Gmail</a> &nbsp; &nbsp; &nbsp; <a href='https://t.me/FatHippy' target='_blank' rel='noopener noreferrer' > Telegram </a> </div></address> </div><picture> <source srcset='./assets/photo.jpg' media='(max-width: 768px)'/> <img style='max-width: 200px; width: 100%' src='./assets/photo.jpg' alt='Фото'/> </picture> </div><div> <br/> <h4>Стек</h4> <ul style='display: flex; flex-wrap: wrap; gap: 20px'> <li>JavaScript. ES6+</li><li>REST API</li><li>TypeScript</li><li>React.js v17+</li><li>Redux</li><li>Next.js / Gatsby.js</li><li>Vue.js v2/v3</li><li>Nuxt.js v2/v3</li><li>Storybook</li></ul> <br/> <h3>О себе</h3> <div style='display: flex; flex-direction: column; gap: 20px'> <p class='main__section-content'> Обладая почти трехлетним опытом коммерческой разработки, Я отточил свои навыки в JavaScript, TypeScript, React.js, Vue.js, Next.js, Nuxt.js, SPA и SSR. Я также работал как в продуктовых, так и в аутсорсинговых компаниях, что позволяет мне быстро адаптироваться к различным средам разработки и рабочие процессы. </p><p class='main__section-content'> На протяжении своей карьеры я был главным разработчиком на нескольких проектах, где отвечал за весь процесс frontend разработки. Этот опыт научил меня важности четкого общения, сотрудничества и эффективного управления проектами, которые я стараюсь внедрить в каждый проект, над которым работаю. </p><p class='main__section-content'> В дополнение к моему опыту разработки, у меня также была возможность обучать стажеров внутри компании. Этот опыт позволил мне развить сильные навыки наставничества и лидерства. </p><p class='main__section-content'> Я буду рад поделиться своими навыками, опытом и страстью к frontend разработке в новой команде. </p><p> Предпочтительный способ связи - <a href='https://t.me/FatHippy' target='_blank' rel='noopener noreferrer'> telegram </a> </p><p> Более подробно ознакомиться с резюме можно на <a href='https://hh.ru/resume/75aeb575ff066a4c020039ed1f7233686e5738' target='_blank' rel='noopener noreferrer' >HH</a > или <a href='https://career.habr.com/benniks' target='_blank' rel='noopener noreferrer' >Habr Career</a > . </p></div></div>"
     }
   },
   {
@@ -20,7 +20,7 @@
     "y": 120,
     "windowData": {
       "title": "Settings",
-      "text": "Settings in progress..."
+      "text": "Settings currently under development..."
     }
   },
   {
@@ -56,5 +56,19 @@
     "windowData": {
       "isGame": true
     }
+  },
+  {
+    "label": "CV",
+    "currentIcon": 5,
+    "icon": "./assets/note.png",
+    "hasChildren": false,
+    "link": "CV.pdf"
+  },
+  {
+    "label": "Cover letter",
+    "currentIcon": 5,
+    "icon": "./assets/note.png",
+    "hasChildren": false,
+    "link": "cover_letter.pdf"
   }
 ]
