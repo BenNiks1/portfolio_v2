@@ -321,6 +321,25 @@ export const Game = () => {
         />
         <p className={styles.canvas__form_text}>Press 'Enter' to start</p>
         <p className={styles.canvas__form_text}>v0.7.0 beta</p>
+        <p className={styles.canvas__score_description}>
+          <a
+            className={styles.canvas__score_link}
+            href='https://benniks1.github.io/my_game/'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            Original game
+          </a>
+          <span> / </span>
+          <a
+            className={styles.canvas__score_link}
+            href='https://github.com/BenNiks1/my_game'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            Game GitHub
+          </a>
+        </p>
       </form>
       <div
         className={cn(styles.canvas__score, { [styles.active]: isGameOver })}
