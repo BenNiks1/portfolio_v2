@@ -8,6 +8,9 @@ export enum AppActionTypes {
   SET_EXPAND_WINDOW = 'SET_EXPAND_WINDOW',
   SET_POWER_STATUS = 'SET_POWER_STATUS',
   CLEAR_ACTIVE_WINDOWS = 'CLEAR_ACTIVE_WINDOWS',
+  SET_THEME = 'SET_THEME',
+  SET_LANGUAGE = 'SET_LANGUAGE',
+  RESET_SETTINGS = 'RESET_SETTINGS',
 }
 
 export type AppActions =
@@ -18,6 +21,9 @@ export type AppActions =
   | setExpandWindow
   | setPowerStatus
   | clearActiveWindows
+  | setTheme
+  | setLanguage
+  | resetSettings
 
 export interface setActiveIcon {
   type: AppActionTypes.SET_ACTIVE_ICON
@@ -51,4 +57,18 @@ export interface setExpandWindow {
 export interface setPowerStatus {
   type: AppActionTypes.SET_POWER_STATUS
   payload: string
+}
+
+export interface setTheme {
+  type: AppActionTypes.SET_THEME
+  payload: 'light' | 'dark'
+}
+
+export interface setLanguage {
+  type: AppActionTypes.SET_LANGUAGE
+  payload: 'en' | 'ru'
+}
+
+export interface resetSettings {
+  type: AppActionTypes.RESET_SETTINGS
 }
