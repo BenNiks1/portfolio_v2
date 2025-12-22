@@ -77,3 +77,22 @@ export const setPowerStatus =
       type: AppActionTypes.SET_POWER_STATUS,
       payload: value,
     })
+
+export const setTheme =
+  (value: 'light' | 'dark') => (dispatch: Dispatch<AppActions>) =>
+    dispatch({
+      type: AppActionTypes.SET_THEME,
+      payload: value,
+    })
+
+export const setLanguage =
+  (value: 'en' | 'ru') => (dispatch: Dispatch<AppActions>) =>
+    dispatch({
+      type: AppActionTypes.SET_LANGUAGE,
+      payload: value,
+    })
+
+export const resetSettings = () => (dispatch: Dispatch<AppActions>) =>
+  dispatch({
+    type: AppActionTypes.RESET_SETTINGS,
+  })

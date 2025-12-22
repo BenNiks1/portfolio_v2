@@ -13,7 +13,17 @@ const queryClient = new QueryClient()
 
 export const App = () => {
   const powerStatus = useTypedSelector(state => state.app.powerStatus)
+  const theme = useTypedSelector(state => state.app.theme)
   const { setPowerStatus } = useAction()
+
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.body.classList.add('dark-theme')
+    } else {
+      document.body.classList.remove('dark-theme')
+    }
+  }, [theme])
+
   useEffect(() => {
     if (powerStatus === POWER_STATUS_START) {
       localStorage.setItem('powerStatus', POWER_STATUS_START)

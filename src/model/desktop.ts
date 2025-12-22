@@ -12,6 +12,8 @@ export interface DesktopData {
 
 export interface WindowData extends DesktopData {
   isGame?: boolean
-  title: string
-  text: string
+  isSettings?: boolean
+  isBytebeat?: boolean
+  title?: string
+  text?: string
 }

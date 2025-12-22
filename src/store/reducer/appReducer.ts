@@ -9,6 +9,8 @@ interface AppState {
   expandWindow: number[]
   activeWindow: StartIcon[]
   powerStatus: string
+  theme: 'light' | 'dark'
+  language: 'en' | 'ru'
 }
 
 const initialState: AppState = {
@@ -18,6 +20,8 @@ const initialState: AppState = {
   expandWindow: [],
   activeWindow: [{ id: 1, label: 'My Computer' }],
   powerStatus: localStorage.getItem('powerStatus') || POWER_STATUS_START,
+  theme: (localStorage.getItem('theme') as 'light' | 'dark') || 'light',
+  language: (localStorage.getItem('language') as 'en' | 'ru') || 'en',
 }
 
 export const appReducer = (
@@ -42,6 +46,16 @@ export const appReducer = (
       return { ...state, expandWindow: action.payload }
     case AppActionTypes.SET_POWER_STATUS:
       return { ...state, powerStatus: action.payload }
+    case AppActionTypes.SET_THEME:
+      localStorage.setItem('theme', action.payload)
+      return { ...state, theme: action.payload }
+    case AppActionTypes.SET_LANGUAGE:
+      localStorage.setItem('language', action.payload)
+      return { ...state, language: action.payload }
+    case AppActionTypes.RESET_SETTINGS:
+      localStorage.setItem('theme', 'light')
+      localStorage.setItem('language', 'en')
+      return { ...state, theme: 'light', language: 'en' }
     default:
       return state
   }
