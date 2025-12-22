@@ -1,6 +1,6 @@
 # 🚀 Bogdan Sychov - Software Engineer Portfolio
 
-[![Portfolio](https://img.shields.io/badge/Portfolio-Live-brightgreen)](https://benniks1.github.io/portfolio_v2/)
+[![Portfolio](https://img.shields.io/badge/Portfolio-Live-brightgreen)](https://bsychov.netlify.app/)
 [![GitHub](https://img.shields.io/badge/GitHub-BenNiks1-blue)](https://github.com/BenNiks1)
 [![React](https://img.shields.io/badge/React-17.0.2-61DAFB?logo=react)](https://reactjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-4.2.4-3178C6?logo=typescript)](https://www.typescriptlang.org/)
@@ -8,7 +8,7 @@
 
 ## 🌐 Live Demo
 
-**[View Portfolio →](https://benniks1.github.io/portfolio_v2/)**
+**[View Portfolio →](https://bsychov.netlify.app/)**
 
 ## 📋 About
 
@@ -108,7 +108,7 @@ This project is open source and available under the MIT License.
 
 **Bogdan Sychov** - Software Engineer
 
-- Portfolio: [benniks1.github.io/portfolio_v2](https://benniks1.github.io/portfolio_v2/)
+- Portfolio: [bsychov.netlify.app](https://bsychov.netlify.app/)
 - GitHub: [@BenNiks1](https://github.com/BenNiks1)
 - LinkedIn: [@Bogdan Sychov](https://www.linkedin.com/in/bogdan-sychov/)
 

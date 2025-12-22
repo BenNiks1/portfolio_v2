@@ -3,6 +3,6 @@ Allow: /
 Disallow: /api/
 Disallow: /private/
 
-Sitemap: https://benniks1.github.io/portfolio_v2/sitemap.xml
+Sitemap: https://bsychov.netlify.app/sitemap.xml
 
 Crawl-delay: 1
