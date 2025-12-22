@@ -1,0 +1,136 @@
+.settings {
+  padding: 20px;
+  font-family: 'Microsoft Sans Serif', sans-serif;
+  max-width: 500px;
+
+  &__title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #000;
+  }
+
+  &__description {
+    font-size: 12px;
+    margin-bottom: 24px;
+    color: #666;
+  }
+
+  &__section {
+    margin-bottom: 24px;
+  }
+
+  &__sectionTitle {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 12px;
+    color: #000;
+  }
+
+  &__options {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  &__button {
+    padding: 8px 16px;
+    font-size: 12px;
+    font-family: 'Microsoft Sans Serif', sans-serif;
+    border: 2px solid #000;
+    background: #c0c0c0;
+    cursor: pointer;
+    box-shadow: inset -1px -1px 0 #000, inset 1px 1px 0 #fff,
+      inset -2px -2px 0 #808080, inset 2px 2px 0 #dfdfdf;
+    transition: all 0.1s;
+
+    &:hover {
+      background: #d0d0d0;
+    }
+
+    &:active {
+      box-shadow: inset 1px 1px 0 #000, inset -1px -1px 0 #fff,
+        inset 2px 2px 0 #808080, inset -2px -2px 0 #dfdfdf;
+      padding: 9px 15px 7px 17px;
+    }
+
+    &_active {
+      background: #000080;
+      color: #fff;
+      font-weight: bold;
+
+      &:hover {
+        background: #0000a0;
+      }
+    }
+  }
+
+  &__resetButton {
+    padding: 10px 24px;
+    font-size: 12px;
+    font-family: 'Microsoft Sans Serif', sans-serif;
+    border: 2px solid #000;
+    background: #c0c0c0;
+    cursor: pointer;
+    box-shadow: inset -1px -1px 0 #000, inset 1px 1px 0 #fff,
+      inset -2px -2px 0 #808080, inset 2px 2px 0 #dfdfdf;
+    transition: all 0.1s;
+    min-width: 150px;
+
+    &:hover {
+      background: #d0d0d0;
+    }
+
+    &:active {
+      box-shadow: inset 1px 1px 0 #000, inset -1px -1px 0 #fff,
+        inset 2px 2px 0 #808080, inset -2px -2px 0 #dfdfdf;
+      padding: 11px 23px 9px 25px;
+    }
+  }
+}
+
+:global(body.dark-theme) {
+  .settings {
+    &__title,
+    &__sectionTitle {
+      color: #e0e0e0;
+    }
+
+    &__description {
+      color: #b0b0b0;
+    }
+
+    &__button {
+      border-color: #444;
+      background: #2a2a2a;
+      color: #e0e0e0;
+      box-shadow: inset -1px -1px 0 #000, inset 1px 1px 0 #444,
+        inset -2px -2px 0 #111, inset 2px 2px 0 #3a3a3a;
+
+      &:hover {
+        background: #3a3a3a;
+      }
+
+      &_active {
+        background: #1e5a8e;
+        color: #fff;
+
+        &:hover {
+          background: #2570b0;
+        }
+      }
+    }
+
+    &__resetButton {
+      border-color: #444;
+      background: #2a2a2a;
+      color: #e0e0e0;
+      box-shadow: inset -1px -1px 0 #000, inset 1px 1px 0 #444,
+        inset -2px -2px 0 #111, inset 2px 2px 0 #3a3a3a;
+
+      &:hover {
+        background: #3a3a3a;
+      }
+    }
+  }
+}
