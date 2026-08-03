@@ -3,12 +3,7 @@ import cn from 'classnames'
 import styles from './Game.module.scss'
 import { GameEngine } from './GameEngine'
 import { GameState } from './types'
-import {
-  COLUMNS_NUMBER,
-  ENEMY_COLUMN_COUNT,
-  ENEMY_ROWS_COUNT,
-  ROWS_NUMBER,
-} from './constants'
+import { COLUMNS_NUMBER, ENEMY_COLUMN_COUNT, ROWS_NUMBER } from './constants'
 
 import bg from '../../assets/game/background.png'
 import playerFrame from '../../assets/game/hero/player.png'
@@ -53,19 +48,25 @@ export const Game = () => {
 
   useEffect(() => {
     if (!canvasRef.current) return
-    gameEngineRef.current = new GameEngine(canvasRef.current)
+    const engine = new GameEngine(canvasRef.current)
+    gameEngineRef.current = engine
+
+    return () => {
+      engine.stop()
+      gameEngineRef.current = null
+    }
   }, [])
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
       const engine = gameEngineRef.current
-      if (!engine) return
+      if (!engine || !canvasRef.current?.offsetParent) return
 
       if (gameState === GameState.PLAYING) {
-        if (e.code === 'ArrowUp' || e.code === 'Space') {
+        if (e.code === 'ArrowUp' || e.code === 'KeyW' || e.code === 'Space') {
           e.preventDefault()
           engine.player.jump()
-        } else if (e.code === 'ArrowDown') {
+        } else if (e.code === 'ArrowDown' || e.code === 'KeyS') {
           e.preventDefault()
           engine.player.duck()
         } else if (e.code === 'ArrowLeft' || e.code === 'KeyA') {
@@ -92,7 +93,7 @@ export const Game = () => {
     const engine = gameEngineRef.current
     if (!engine) return
 
-    if (e.code === 'ArrowDown') {
+    if (e.code === 'ArrowDown' || e.code === 'KeyS') {
       e.preventDefault()
       engine.player.stand()
     } else if (
@@ -124,15 +125,14 @@ export const Game = () => {
     const bgWidth = 950
     const canvas = canvasRef.current!
 
-    const bgX =
-      Math.floor(engine.settings.cameraX / bgWidth) * bgWidth -
-      (engine.settings.cameraX % bgWidth)
-    const count = Math.ceil(canvas.width / bgWidth) + 2
+    const offset =
+      ((engine.settings.cameraX % bgWidth) + bgWidth) % bgWidth
+    const count = Math.ceil(canvas.width / bgWidth) + 1
 
     for (let i = 0; i < count; i++) {
       ctx.drawImage(
         background,
-        bgX + i * bgWidth - engine.settings.cameraX,
+        i * bgWidth - offset,
         0,
         bgWidth,
         canvas.height
@@ -173,7 +173,7 @@ export const Game = () => {
     const image = imagesRef.current.enemy
 
     engine.enemies.forEach(enemy => {
-      const column = enemy.state.frame % ENEMY_ROWS_COUNT
+      const column = enemy.state.frame % ENEMY_COLUMN_COUNT
       const row = Math.floor(enemy.state.frame / ENEMY_COLUMN_COUNT)
 
       ctx.drawImage(
@@ -239,38 +239,59 @@ export const Game = () => {
     const ctx = canvas.getContext('2d')!
     const engine = gameEngineRef.current
 
-    let animationId: number
+    let animationId: number | null = null
 
-    const gameLoop = () => {
-      if (gameState === GameState.PLAYING) {
+    const drawScene = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+      drawBackground(ctx, engine)
+      drawPlayer(ctx, engine)
+      drawEnemies(ctx, engine)
+      drawLife(ctx, engine)
+      drawScore(ctx, engine)
+
+      engine.drawHitboxes(ctx)
+    }
+
+    const step = 1000 / 60
+    let lastTime = performance.now()
+    let accumulator = 0
+
+    const gameLoop = (now: number) => {
+      if (!canvas.offsetParent) {
+        if (!engine.isPaused) engine.pause()
+        setGameState(GameState.PAUSED)
+        return
+      }
+
+      accumulator = Math.min(accumulator + (now - lastTime), step * 5)
+      lastTime = now
+
+      while (accumulator >= step) {
         engine.update()
+        accumulator -= step
+      }
 
-        ctx.clearRect(0, 0, canvas.width, canvas.height)
+      drawScene()
 
-        drawBackground(ctx, engine)
-        drawPlayer(ctx, engine)
-        drawEnemies(ctx, engine)
-        drawLife(ctx, engine)
-        drawScore(ctx, engine)
-
-        engine.drawHitboxes(ctx)
-
-        if (!engine.isRunning) {
-          setGameState(GameState.GAME_OVER)
-        }
-      } else if (gameState === GameState.PAUSED) {
-        drawPauseOverlay(ctx)
+      if (!engine.isRunning) {
+        setGameState(GameState.GAME_OVER)
+        return
       }
 
       animationId = requestAnimationFrame(gameLoop)
     }
 
-    if (gameState === GameState.PLAYING || gameState === GameState.PAUSED) {
-      gameLoop()
+    if (gameState === GameState.PLAYING) {
+      lastTime = performance.now()
+      animationId = requestAnimationFrame(gameLoop)
+    } else if (gameState === GameState.PAUSED) {
+      drawScene()
+      drawPauseOverlay(ctx)
     }
 
     return () => {
-      if (animationId) {
+      if (animationId !== null) {
         cancelAnimationFrame(animationId)
       }
     }
@@ -327,15 +348,15 @@ export const Game = () => {
           autoFocus
         />
         <div className={styles.canvas__form_controls}>
-          <p>↑ or Space - Jump</p>
-          <p>↓ - Duck</p>
+          <p>↑ W or Space - Jump (over ground enemies)</p>
+          <p>↓ S - Duck (under flying enemies)</p>
           <p>← → or A D - Move Left/Right</p>
           <p>ESC - Pause</p>
         </div>
         <button type='submit' className={styles.canvas__form_button}>
           Start Game
         </button>
-        <p className={styles.canvas__form_text}>v1.0.0</p>
+        <p className={styles.canvas__form_text}>v1.1.0</p>
         <p className={styles.canvas__score_description}>
           <a
             className={styles.canvas__score_link}

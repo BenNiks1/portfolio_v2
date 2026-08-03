@@ -14,6 +14,13 @@ export interface Size {
   height: number
 }
 
+export interface Hitbox {
+  x: number
+  y: number
+  width: number
+  height: number
+}
+
 export enum GameState {
   MENU = 'MENU',
   PLAYING = 'PLAYING',
@@ -28,12 +35,12 @@ export interface PlayerState {
   jumpCount: number
   jumpHeight: number
   moveSpeed: number
+  invulnerabilityFrames: number
 }
 
 export interface EnemyState {
   frame: number
   speed: number
   scored: boolean
-  passed: boolean
   type: 'ground' | 'air'
 }
