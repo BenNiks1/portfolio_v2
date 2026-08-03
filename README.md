@@ -1,4 +1,4 @@
-# 🚀 Bogdan Sychov - Software Engineer Portfolio
+# 🚀 Bohdan Sychov - Software Engineer Portfolio
 
 [![Portfolio](https://img.shields.io/badge/Portfolio-Live-brightgreen)](https://bsychov.netlify.app/)
 [![GitHub](https://img.shields.io/badge/GitHub-BenNiks1-blue)](https://github.com/BenNiks1)
@@ -12,11 +12,11 @@
 
 ## 📋 About
 
-Professional portfolio of **Bogdan Sychov**, a Software Engineer with 5+ years of experience specializing in:
+Professional portfolio of **Bohdan Sychov**, a Software Engineer at Lineate with 6+ years of experience specializing in:
 - **Frontend Development**: React, Vue.js, TypeScript, Modern UI/UX
-- **Backend Development**: Node.js, Express, REST APIs
-- **Cloud Architecture**: AWS, Cloud-based Systems
-- **Full-Stack Solutions**: End-to-end web applications
+- **Backend Development**: Node.js, Python, Ruby, REST APIs
+- **Cloud & Data Engineering**: AWS, ClickHouse, data-intensive systems
+- **AI-driven Solutions**: IDP, Agentic RAG systems, LLM integrations
 
 
 ## ✨ Features
@@ -106,11 +106,12 @@ This project is open source and available under the MIT License.
 
 ## 📞 Contact
 
-**Bogdan Sychov** - Software Engineer
+**Bohdan Sychov** - Software Engineer
 
 - Portfolio: [bsychov.netlify.app](https://bsychov.netlify.app/)
 - GitHub: [@BenNiks1](https://github.com/BenNiks1)
-- LinkedIn: [@Bogdan Sychov](https://www.linkedin.com/in/bogdan-sychov/)
+- LinkedIn: [@Bohdan Sychov](https://www.linkedin.com/in/bogdan-sychov/)
+- Email: [sychovbohdan@gmail.com](mailto:sychovbohdan@gmail.com)
 
 ---
 

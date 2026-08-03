@@ -1,15 +1,26 @@
 import {
+  AIR_ENEMY_Y_OFFSET,
   COLUMNS_NUMBER,
   ENEMY_COLUMN_COUNT,
   ENEMY_IMG_HEIGHT,
   ENEMY_IMG_WIDTH,
   ENEMY_ROWS_COUNT,
   ENEMY_SPEED,
+  GROUND_ENEMY_Y_OFFSET,
+  HIT_INVULNERABILITY_FRAMES,
+  HIT_SPRITE_FRAMES,
   JUMP_LENGTH,
   PLAYER_HEIGHT,
   ROWS_NUMBER,
 } from './constants'
-import { GameSettings, Position, Size, PlayerState, EnemyState } from './types'
+import {
+  GameSettings,
+  Position,
+  Size,
+  PlayerState,
+  EnemyState,
+  Hitbox,
+} from './types'
 
 export class Player {
   position: Position
@@ -33,6 +44,7 @@ export class Player {
       jumpCount: 0,
       jumpHeight: 0,
       moveSpeed: 0,
+      invulnerabilityFrames: 0,
     }
   }
 
@@ -49,7 +61,7 @@ export class Player {
   }
 
   jump() {
-    if (!this.state.isJumping) {
+    if (!this.state.isJumping && !this.state.isDucking) {
       this.state.isJumping = true
       this.state.jumpCount = 0
     }
@@ -95,30 +107,38 @@ export class Player {
     } else {
       this.position.y = canvasHeight - PLAYER_HEIGHT
     }
+
+    if (this.state.invulnerabilityFrames > 0) {
+      this.state.invulnerabilityFrames--
+      this.state.isHit =
+        this.state.invulnerabilityFrames >
+        HIT_INVULNERABILITY_FRAMES - HIT_SPRITE_FRAMES
+    }
+  }
+
+  isInvulnerable(): boolean {
+    return this.state.invulnerabilityFrames > 0
   }
 
   hit() {
     this.state.isHit = true
-    setTimeout(() => {
-      this.state.isHit = false
-    }, 200)
+    this.state.invulnerabilityFrames = HIT_INVULNERABILITY_FRAMES
   }
 
-  getHitbox() {
+  getHitbox(): Hitbox {
     const hitboxPaddingX = 110
-    const hitboxPaddingRight = 110
-    const hitboxWidth = this.frameWidth - hitboxPaddingX - hitboxPaddingRight
-    const hitboxHeight = 60
+    const hitboxWidth = this.frameWidth - hitboxPaddingX * 2
+    const hitboxHeight = this.state.isDucking ? 30 : 60
     const hitboxOffsetY = 20
+    const bottom =
+      this.position.y -
+      this.state.jumpHeight +
+      this.frameHeight -
+      hitboxOffsetY
 
     return {
       x: this.position.x + hitboxPaddingX,
-      y:
-        this.position.y -
-        this.state.jumpHeight +
-        this.frameHeight -
-        hitboxHeight -
-        hitboxOffsetY,
+      y: bottom - hitboxHeight,
       width: hitboxWidth,
       height: hitboxHeight,
     }
@@ -130,7 +150,6 @@ export class Enemy {
   state: EnemyState
   frameWidth: number
   frameHeight: number
-  initialX: number
 
   constructor(
     canvasWidth: number,
@@ -141,54 +160,49 @@ export class Enemy {
     this.frameWidth = ENEMY_IMG_WIDTH / ENEMY_COLUMN_COUNT
     this.frameHeight = ENEMY_IMG_HEIGHT / ENEMY_ROWS_COUNT
 
-    const groundY = canvasHeight - 65
-    const airY = canvasHeight - 180
-
     this.position = {
       x: canvasWidth + startDistance,
-      y: type === 'air' ? airY : groundY,
+      y:
+        type === 'air'
+          ? canvasHeight - AIR_ENEMY_Y_OFFSET
+          : canvasHeight - GROUND_ENEMY_Y_OFFSET,
     }
-    this.initialX = canvasWidth
     this.state = {
       frame: 0,
       speed: ENEMY_SPEED,
       scored: false,
-      passed: false,
       type: type,
     }
   }
 
   update(difficulty: number) {
-    this.state.frame++
     const maxFrame = ENEMY_COLUMN_COUNT * ENEMY_ROWS_COUNT
-    if (this.state.frame > maxFrame) {
-      this.state.frame = 0
-    }
+    this.state.frame = (this.state.frame + 1) % maxFrame
 
     const speedMultiplier = 1 + difficulty * 0.1
     this.position.x -= this.state.speed * speedMultiplier
   }
 
-  reset(canvasHeight: number) {
+  reset(canvasWidth: number, canvasHeight: number) {
     const minDistance = 600
     const maxDistance = 1500
     const randomDistance = Math.floor(
       Math.random() * (maxDistance - minDistance) + minDistance
     )
-    this.position.x = randomDistance
+    // always respawn beyond the right edge, never inside the visible field
+    this.position.x = canvasWidth + randomDistance
 
     const newType = Math.random() > 0.5 ? 'ground' : 'air'
     this.state.type = newType
-
-    const groundY = canvasHeight - 65
-    const airY = canvasHeight - 180
-    this.position.y = newType === 'air' ? airY : groundY
+    this.position.y =
+      newType === 'air'
+        ? canvasHeight - AIR_ENEMY_Y_OFFSET
+        : canvasHeight - GROUND_ENEMY_Y_OFFSET
 
     this.state.scored = false
-    this.state.passed = false
   }
 
-  getHitbox() {
+  getHitbox(): Hitbox {
     const hitboxPaddingX = 20
     const hitboxPaddingRight = 20
     const hitboxWidth = this.frameWidth - hitboxPaddingX - hitboxPaddingRight
@@ -215,7 +229,6 @@ export class GameEngine {
   highScore: number
   isRunning: boolean
   isPaused: boolean
-  animationId: number | null
   currentFrame: number
   debugMode: boolean
 
@@ -234,7 +247,6 @@ export class GameEngine {
     this.highScore = parseInt(localStorage.getItem('gameHighScore') || '0')
     this.isRunning = false
     this.isPaused = false
-    this.animationId = null
     this.currentFrame = 0
     this.debugMode = false
     this.initEnemies()
@@ -321,10 +333,10 @@ export class GameEngine {
   }
 
   updateScore(enemy: Enemy) {
-    const playerCenterX = this.player.position.x + this.player.frameWidth / 2
-    const enemyRightEdge = enemy.position.x + enemy.frameWidth
+    const playerBox = this.player.getHitbox()
+    const enemyBox = enemy.getHitbox()
 
-    if (enemyRightEdge < playerCenterX && !enemy.state.scored) {
+    if (enemyBox.x + enemyBox.width < playerBox.x && !enemy.state.scored) {
       enemy.state.scored = true
       this.score++
       if (this.score % 5 === 0) {
@@ -341,11 +353,11 @@ export class GameEngine {
     this.enemies.forEach(enemy => {
       enemy.update(this.settings.difficulty)
 
-      if (enemy.position.x <= -60) {
-        enemy.reset(this.canvas.height)
+      if (enemy.position.x <= -enemy.frameWidth) {
+        enemy.reset(this.canvas.width, this.canvas.height)
       }
 
-      if (this.checkCollision(enemy) && !this.player.state.isHit) {
+      if (this.checkCollision(enemy) && !this.player.isInvulnerable()) {
         this.player.hit()
         this.life--
         if (this.life <= 0) {

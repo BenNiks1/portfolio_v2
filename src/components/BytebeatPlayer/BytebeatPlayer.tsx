@@ -2,6 +2,74 @@ import React, { useState, useEffect, useRef, useCallback } from 'react'
 import styles from './BytebeatPlayer.module.scss'
 import { bytebeatTracks, BytebeatTrack } from './tracks'
 
+const workletSource = `
+class BytebeatProcessor extends AudioWorkletProcessor {
+  constructor() {
+    super()
+    this.t = 0
+    this.formulaFn = null
+    this.formulaRate = 8000
+    this.step = 1
+    this.playing = false
+    this.samplesSinceReport = 0
+    this.port.onmessage = event => {
+      const msg = event.data
+      if (msg.type === 'formula') {
+        try {
+          const fn = new Function('t', 'return (' + msg.formula + ') & 255')
+          fn(0)
+          this.formulaFn = fn
+        } catch (e) {
+          this.formulaFn = null
+          this.port.postMessage({ type: 'error', message: String(e) })
+        }
+        this.t = 0
+        this.formulaRate = msg.sampleRate
+        this.step = msg.sampleRate / sampleRate
+      } else if (msg.type === 'play') {
+        this.playing = true
+      } else if (msg.type === 'pause') {
+        this.playing = false
+      } else if (msg.type === 'stop') {
+        this.playing = false
+        this.t = 0
+        this.port.postMessage({ type: 'time', seconds: 0 })
+      }
+    }
+  }
+
+  process(inputs, outputs) {
+    const channel = outputs[0][0]
+    if (!channel) return true
+
+    if (!this.playing || !this.formulaFn) {
+      channel.fill(0)
+      return true
+    }
+
+    try {
+      for (let i = 0; i < channel.length; i++) {
+        const value = this.formulaFn(Math.floor(this.t)) & 255
+        channel[i] = (value - 128) / 128
+        this.t += this.step
+      }
+    } catch (e) {
+      channel.fill(0)
+      this.playing = false
+      this.port.postMessage({ type: 'error', message: String(e) })
+    }
+
+    this.samplesSinceReport += channel.length
+    if (this.samplesSinceReport >= sampleRate / 10) {
+      this.samplesSinceReport = 0
+      this.port.postMessage({ type: 'time', seconds: this.t / this.formulaRate })
+    }
+    return true
+  }
+}
+registerProcessor('bytebeat-processor', BytebeatProcessor)
+`
+
 export const BytebeatPlayer: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState(false)
   const [selectedTrack, setSelectedTrack] = useState<BytebeatTrack>(
@@ -11,67 +79,89 @@ export const BytebeatPlayer: React.FC = () => {
   const [volume, setVolume] = useState(0.3)
 
   const audioContextRef = useRef<AudioContext | null>(null)
-  const sourceNodeRef = useRef<AudioBufferSourceNode | null>(null)
+  const workletNodeRef = useRef<AudioWorkletNode | null>(null)
   const gainNodeRef = useRef<GainNode | null>(null)
   const analyserRef = useRef<AnalyserNode | null>(null)
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const animationFrameRef = useRef<number | null>(null)
-  const startTimeRef = useRef<number>(0)
   const isPlayingRef = useRef<boolean>(false)
+  const loadedTrackIdRef = useRef<number | null>(null)
+  const volumeRef = useRef<number>(volume)
 
   useEffect(() => {
-    audioContextRef.current = new (window.AudioContext ||
-      (window as any).webkitAudioContext)()
-    gainNodeRef.current = audioContextRef.current.createGain()
-    gainNodeRef.current.gain.value = volume
-    gainNodeRef.current.connect(audioContextRef.current.destination)
-
-    analyserRef.current = audioContextRef.current.createAnalyser()
-    analyserRef.current.fftSize = 2048
-    analyserRef.current.connect(gainNodeRef.current)
-
-    return () => {
-      stop()
-      if (audioContextRef.current) {
-        audioContextRef.current.close()
-      }
-    }
-  }, [])
-
-  useEffect(() => {
+    volumeRef.current = volume
     if (gainNodeRef.current) {
       gainNodeRef.current.gain.value = volume
     }
   }, [volume])
 
-  const generateBytebeat = useCallback(
-    (formula: string, sampleRate: number, duration: number = 30) => {
-      const samples = sampleRate * duration
-      const buffer = audioContextRef.current!.createBuffer(
-        1,
-        samples,
-        sampleRate
-      )
-      const data = buffer.getChannelData(0)
-
-      try {
-        const func = new Function('t', `return (${formula}) & 255`)
-
-        for (let t = 0; t < samples; t++) {
-          const value = func(t)
-          data[t] = (value - 128) / 128
-        }
-      } catch (error) {
-        console.error('Error in bytebeat formula:', error)
-        for (let i = 0; i < samples; i++) {
-          data[i] = 0
-        }
+  useEffect(
+    () => () => {
+      isPlayingRef.current = false
+      if (animationFrameRef.current !== null) {
+        cancelAnimationFrame(animationFrameRef.current)
       }
-
-      return buffer
+      if (workletNodeRef.current) {
+        workletNodeRef.current.disconnect()
+      }
+      if (audioContextRef.current) {
+        audioContextRef.current.close()
+      }
     },
     []
   )
+
+  const ensureAudioGraph = useCallback(async () => {
+    let ctx = audioContextRef.current
+
+    if (!ctx) {
+      const AudioContextCtor =
+        window.AudioContext || (window as any).webkitAudioContext
+      ctx = new AudioContextCtor() as AudioContext
+
+      const blob = new Blob([workletSource], { type: 'application/javascript' })
+      const url = URL.createObjectURL(blob)
+      try {
+        await ctx.audioWorklet.addModule(url)
+      } finally {
+        URL.revokeObjectURL(url)
+      }
+
+      const gain = ctx.createGain()
+      gain.gain.value = volumeRef.current
+      gain.connect(ctx.destination)
+
+      const analyser = ctx.createAnalyser()
+      analyser.fftSize = 2048
+      analyser.connect(gain)
+
+      const node = new AudioWorkletNode(ctx, 'bytebeat-processor', {
+        numberOfInputs: 0,
+        outputChannelCount: [1],
+      })
+      node.port.onmessage = event => {
+        const msg = event.data
+        if (msg.type === 'time') {
+          setTime(msg.seconds)
+        } else if (msg.type === 'error') {
+          console.error('Bytebeat formula error:', msg.message)
+          isPlayingRef.current = false
+          setIsPlaying(false)
+        }
+      }
+      node.connect(analyser)
+
+      audioContextRef.current = ctx
+      gainNodeRef.current = gain
+      analyserRef.current = analyser
+      workletNodeRef.current = node
+    }
+
+    if (ctx.state === 'suspended') {
+      await ctx.resume()
+    }
+    return workletNodeRef.current!
+  }, [])
 
   const drawVisualization = useCallback(() => {
     if (!canvasRef.current || !analyserRef.current) return
@@ -132,63 +222,68 @@ export const BytebeatPlayer: React.FC = () => {
     draw()
   }, [])
 
-  const play = useCallback(() => {
-    if (!audioContextRef.current || isPlaying) return
+  const play = useCallback(
+    async (track: BytebeatTrack) => {
+      let node: AudioWorkletNode
+      try {
+        node = await ensureAudioGraph()
+      } catch (error) {
+        console.error('Web Audio init failed:', error)
+        return
+      }
 
-    const buffer = generateBytebeat(
-      selectedTrack.formula,
-      selectedTrack.sampleRate
-    )
-    const source = audioContextRef.current.createBufferSource()
-    source.buffer = buffer
-    source.connect(analyserRef.current!)
-    source.loop = true
-    source.start(0)
+      if (loadedTrackIdRef.current !== track.id) {
+        node.port.postMessage({
+          type: 'formula',
+          formula: track.formula,
+          sampleRate: track.sampleRate,
+        })
+        loadedTrackIdRef.current = track.id
+        setTime(0)
+      }
 
-    sourceNodeRef.current = source
-    startTimeRef.current = Date.now()
-    isPlayingRef.current = true
-    setIsPlaying(true)
-    drawVisualization()
-  }, [selectedTrack, generateBytebeat, drawVisualization, isPlaying])
+      node.port.postMessage({ type: 'play' })
+      isPlayingRef.current = true
+      setIsPlaying(true)
+      drawVisualization()
+    },
+    [ensureAudioGraph, drawVisualization]
+  )
 
   const pause = useCallback(() => {
-    if (sourceNodeRef.current) {
-      sourceNodeRef.current.stop()
-      sourceNodeRef.current = null
+    if (workletNodeRef.current) {
+      workletNodeRef.current.port.postMessage({ type: 'pause' })
     }
-    if (animationFrameRef.current) {
+    if (animationFrameRef.current !== null) {
       cancelAnimationFrame(animationFrameRef.current)
+      animationFrameRef.current = null
     }
     isPlayingRef.current = false
     setIsPlaying(false)
   }, [])
 
   const stop = useCallback(() => {
-    pause()
+    if (workletNodeRef.current) {
+      workletNodeRef.current.port.postMessage({ type: 'stop' })
+    }
+    if (animationFrameRef.current !== null) {
+      cancelAnimationFrame(animationFrameRef.current)
+      animationFrameRef.current = null
+    }
+    isPlayingRef.current = false
+    setIsPlaying(false)
     setTime(0)
-    startTimeRef.current = 0
-  }, [pause])
+  }, [])
 
   const handleTrackSelect = (track: BytebeatTrack) => {
-    const wasPlaying = isPlaying
-    stop()
     setSelectedTrack(track)
-    if (wasPlaying) {
-      setTimeout(() => play(), 100)
+    if (isPlayingRef.current) {
+      play(track)
+    } else {
+      loadedTrackIdRef.current = null
+      setTime(0)
     }
   }
-
-  useEffect(() => {
-    if (!isPlaying) return
-
-    const interval = setInterval(() => {
-      const elapsed = (Date.now() - startTimeRef.current) / 1000
-      setTime(elapsed)
-    }, 100)
-
-    return () => clearInterval(interval)
-  }, [isPlaying])
 
   return (
     <div className={styles.player}>
@@ -234,7 +329,7 @@ export const BytebeatPlayer: React.FC = () => {
       <div className={styles.player__controls}>
         <button
           className={styles.player__button}
-          onClick={isPlaying ? pause : play}
+          onClick={isPlaying ? pause : () => play(selectedTrack)}
         >
           {isPlaying ? '⏸ Pause' : '▶ Play'}
         </button>
